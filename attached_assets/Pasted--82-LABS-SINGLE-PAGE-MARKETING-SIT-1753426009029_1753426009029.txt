@@ -1,0 +1,121 @@
+############################################################
+### 82 LABS — SINGLE‑PAGE MARKETING SITE PROMPT (Next.js) ###
+############################################################
+
+🛠 **Tech‑stack**  
+• Next.js 14 (App Router, **TypeScript**) • Tailwind CSS • Framer‑Motion *or* GSAP + ScrollTrigger • React‑Three‑Fiber (+ @react-three/drei) • Swiper • React‑Hook‑Form + Zod • Lucide/Heroicons
+
+📸 **Reference screenshots** — Replit “take‑screenshot” (hero only)
+
+```
+take-screenshot  https://cohere.com   as  /public/refs/cohere-hero.png
+take-screenshot  https://vercel.com   as  /public/refs/vercel-hero.png
+take-screenshot  https://linear.app   as  /public/refs/linear-hero.png
+take-screenshot  https://stripe.com   as  /public/refs/stripe-hero.png
+take-screenshot  https://openai.com   as  /public/refs/openai-hero.png
+```
+
+---
+
+## 1  Layout / Sections (one page + smooth scroll anchors)
+
+| ID | Section | Key features |
+|----|---------|--------------|
+| `#top` | **Header / nav** | Logo (left) – links “Platform | Solutions | Research | Resources | Company” – high‑contrast “Request a demo” button. Sticky, glassy, collapses to hamburger \< 768 px. |
+| `#home` | **Hero** | Full‑viewport R3F canvas (15 semi‑transparent Icosahedrons; slow `useFrame` rotation). Overlay heading + sub‑heading + CTA → `#contact`. Heading fades / parallax on scroll. |
+| `#models` | **Model / Feature tabs** | Headless‑UI Tab.Group (“Custom Software | AI Automation | MVP in Weeks”) with slide in/out content cards. |
+| `#features` | **Alternating info panels** | Two‑column layout, text ↔ gradient Voronoi SVG; icons for Scalable / Secure / Accurate; fade‑up on scroll. |
+| `#industries` | **Industry carousel** | Swiper slider (Technology, Finance, Healthcare, Manufacturing, Logistics, Startups). Arrow controls + progress bar. |
+| `#custom` | **Customization** | Bulleted benefits (seamless integration…); sequential bullet animation; SVG diagram on right. |
+| `#deploy` | **Deployment options** | Three check‑mark cards (Cloud SaaS, VPC, On‑prem) + “Learn more →”. |
+| `#quotes` | **Testimonials** | Swiper quotes slider, author, bg, progress indicator. |
+| `#contact` | **CTA / contact** | Acrylic‑blue → coral gradient (Cohere palette). Button opens modal form (name, email, 140‑char brief) → POST `/api/contact`. |
+| Footer | **Footer** | Dark, 4‑column links, tagline “AI moves fast; we’ll keep you up to date with the latest.” |
+
+---
+
+## 2  Visual design
+
+* **Colour palette** — natural deep‑green, volcanic‑black + synthetic electric‑blue, coral gradients (per Cohere identity ¹).  
+* **Typography** — Inter (latin/english), **Assistant & Heebo** (Hebrew) pulled via Google Fonts.  
+* **Background shapes** — Voronoi‑style cell SVGs; slow rotate/scale ¹.  
+* **Icons** — Lucide/Heroicons thin‑line set ¹.  
+* **Responsiveness** — Tailwind breakpoints.
+
+> ¹ Source: Pentagram’s Cohere case‑study — natural vs synthetic palette & monoline icon system.
+
+---
+
+## 3  Hebrew (RTL) integration  🆕
+
+* Import Google‑Fonts:  
+  ```html
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+  ```
+* Tailwind config:  
+  ```js
+  module.exports = {
+    content: ['./src/**/*.{ts,tsx}'],
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'Assistant', 'Heebo', 'sans-serif'],
+          hebrew: ['Heebo', 'Assistant', 'sans-serif'],
+        },
+      },
+    },
+    plugins: [require('@tailwindcss/typography'), require('tailwindcss-rtl')],
+  }
+  ```
+* Add `dir="rtl"` on any element that toggles into Hebrew or wrap with a `.rtl` utility (from `tailwindcss-rtl`).  
+* Provide a language toggle in the header; when Hebrew is active, apply `rtl` class and switch copy to Hebrew translations.
+
+---
+
+## 4  Dark / Light mode  🆕
+
+* Enable Tailwind `darkMode: 'class'`.  
+* Add a sun/moon toggle button in header (accessible `<button aria-label="Toggle theme">`).  
+* Store user preference in `localStorage`.  
+* Example wrapper:
+
+```tsx
+// hooks/useTheme.tsx
+export function useTheme() {
+  const [theme, setTheme] = useState<'light' | 'dark'>(/* detect */)
+  useEffect(()=>{ document.documentElement.classList.toggle('dark', theme==='dark') }, [theme])
+  return { theme, toggle: () => setTheme(t => (t==='light'?'dark':'light')) }
+}
+```
+
+---
+
+## 5  Animations & interactions
+
+* Framer‑Motion: `useScroll`, `whileHover`, `AnimatePresence`.  
+* R3F scene in `components/CellField.tsx`.  
+* Swiper with touch / a11y.  
+* Smooth‑scroll behaviour via CSS or scroll utilities.
+
+---
+
+## 6  Project structure / best practices
+
+```
+src/
+│── components/  (Header, Hero, Tabs, InfoPanel, …)
+│── hooks/       (useTheme, useRtl, …)
+│── data/        (industries.json, testimonials.json)
+│── pages/       (index.tsx)
+│── styles/      (globals.css, tailwind.config.cjs)
+public/
+```
+
+* TypeScript props, ARIA, eslint + prettier config.  
+* `next.config.js` with `trailingSlash: true` for static export.  
+* README with `pnpm i && pnpm dev` and Vercel deploy instructions.
+
+────────────────────────────────────────────────────────────
+### END PROMPT — paste into Replit’s Site‑Builder
