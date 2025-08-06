@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   Menu,
   X,
@@ -33,7 +33,15 @@ export default function Home() {
   const [activeModel, setActiveModel] = useState("fullstack");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const { toast } = useToast();
+
+  // Refs for scroll animations
+  const heroRef = useRef<HTMLDivElement>(null);
+  const platformRef = useRef<HTMLDivElement>(null);
+  const solutionsRef = useRef<HTMLDivElement>(null);
+  const researchRef = useRef<HTMLDivElement>(null);
+  const companyRef = useRef<HTMLDivElement>(null);
 
   const models = [
     {
@@ -61,40 +69,93 @@ export default function Home() {
 
   const currentModel = models.find(m => m.id === activeModel) || models[0];
 
-  // Scroll reveal effect
+  // Advanced scroll animation system
   useEffect(() => {
     const handleScroll = () => {
-      setNavBackground(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min(scrollY / documentHeight, 1);
       
-      // Reveal elements on scroll
-      const reveals = document.querySelectorAll('.reveal');
-      reveals.forEach((element) => {
+      setScrollProgress(progress);
+      setNavBackground(scrollY > 20);
+      
+      // Advanced reveal animations with precise timing
+      const reveals = document.querySelectorAll('.reveal:not(.revealed)');
+      reveals.forEach((element, index) => {
+        const rect = element.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
+        const elementTop = rect.top;
+        const elementHeight = rect.height;
         
-        if (elementTop < windowHeight - elementVisible) {
-          element.classList.add('revealed');
+        // Calculate reveal threshold based on element position
+        const revealPoint = windowHeight * 0.8;
+        const progressPoint = windowHeight * 0.6;
+        
+        if (elementTop < revealPoint) {
+          // Add delay based on index for sequential reveals
+          setTimeout(() => {
+            element.classList.add('revealed');
+          }, index * 150);
+        }
+        
+        // Progressive animation based on scroll progress
+        if (elementTop < progressPoint && elementTop > -elementHeight) {
+          const elementProgress = Math.max(0, Math.min(1, (progressPoint - elementTop) / elementHeight));
+          (element as HTMLElement).style.setProperty('--scroll-progress', elementProgress.toString());
         }
       });
       
-      // Stagger animations
+      // Stagger animations with improved timing
       const staggerItems = document.querySelectorAll('.stagger-item:not(.animate)');
-      staggerItems.forEach((element) => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 100;
+      staggerItems.forEach((element, index) => {
+        const rect = element.getBoundingClientRect();
+        const triggerPoint = window.innerHeight * 0.85;
         
-        if (elementTop < windowHeight - elementVisible) {
-          element.classList.add('animate');
+        if (rect.top < triggerPoint) {
+          // Staggered timing based on position and index
+          setTimeout(() => {
+            element.classList.add('animate');
+          }, index * 100 + Math.random() * 50);
+        }
+      });
+
+      // Parallax effects for sections
+      updateParallaxEffects(scrollY);
+    };
+
+    const updateParallaxEffects = (scrollY: number) => {
+      const sections = [heroRef, platformRef, solutionsRef, researchRef, companyRef];
+      
+      sections.forEach((ref, index) => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect();
+          const speed = 0.5 + (index * 0.1); // Different speeds for each section
+          const yPos = -(scrollY * speed);
+          const opacity = Math.max(0, Math.min(1, 1 - Math.abs(rect.top) / window.innerHeight));
+          
+          // Apply subtle parallax and opacity changes
+          ref.current.style.transform = `translateY(${yPos * 0.1}px)`;
+          ref.current.style.opacity = opacity.toString();
         }
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on mount
+    // Throttled scroll handler for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    handleScroll(); // Initial call
     
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
   // Handle click outside dropdown
@@ -319,8 +380,14 @@ export default function Home() {
         </nav>
       </header>
 
+      {/* Scroll Progress Indicator */}
+      <div 
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 z-50 transition-all duration-300"
+        style={{ width: `${scrollProgress * 100}%` }}
+      />
+
       {/* Hero Section */}
-      <section id="hero" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <section id="hero" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8" ref={heroRef}>
         <div className="max-w-4xl mx-auto text-center">
           {/* Trusted by companies badge */}
           <div className="mb-8 fade-in">
@@ -354,13 +421,14 @@ export default function Home() {
       </section>
 
       {/* Models Section */}
-      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={platformRef}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal">
+          <div className="text-center mb-12 reveal text-reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
-              State-of-the-art generative and retrieval models
+              <span className="line">State-of-the-art generative</span> 
+              <span className="line">and retrieval models</span>
             </h2>
-            <p className="body-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="body-lg text-gray-600 max-w-2xl mx-auto fade-in-up">
               Unlock the unlimited potential of AI with our three model families — designed to meet the diverse needs of enterprises.
             </p>
           </div>
@@ -492,57 +560,58 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8" ref={solutionsRef}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal">
+          <div className="text-center mb-12 reveal text-reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
-              Build high-impact applications grounded in your proprietary data
+              <span className="line">Build high-impact applications</span>
+              <span className="line">grounded in your proprietary data</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Scalable */}
-            <div className="text-center stagger-item">
-              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
+            <div className="text-center stagger-item fade-in-left">
+              <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:rotate-12 duration-500 group">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-purple-600 group-hover:text-purple-700 transition-colors">
                   <rect x="3" y="3" width="7" height="7" rx="1"/>
                   <rect x="14" y="3" width="7" height="7" rx="1"/>
                   <rect x="14" y="14" width="7" height="7" rx="1"/>
                   <rect x="3" y="14" width="7" height="7" rx="1"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Scalable</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-purple-700 duration-300">Scalable</h3>
+              <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 Take applications from proof of concept to full production with our compressed, enterprise-focused 
                 models — built to limit costs while maximizing performance.
               </p>
             </div>
 
             {/* Accurate */}
-            <div className="text-center stagger-item">
-              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
+            <div className="text-center stagger-item scale-in">
+              <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:-rotate-6 duration-500 group">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-blue-600 group-hover:text-blue-700 transition-colors">
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Accurate</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-blue-700 duration-300">Accurate</h3>
+              <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 Fine-tune our models to your company data with built-in retrieval-augmented generation (RAG), 
                 providing verifiable outputs grounded in your sources of truth.
               </p>
             </div>
 
             {/* Secure */}
-            <div className="text-center stagger-item">
-              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
+            <div className="text-center stagger-item fade-in-right">
+              <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:rotate-6 duration-500 group">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-green-600 group-hover:text-green-700 transition-colors">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                   <circle cx="12" cy="16" r="1"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Secure</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-green-700 duration-300">Secure</h3>
+              <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 Keep your critical data protected with enterprise-grade security, advanced access controls, 
                 and private deployment options.
               </p>
@@ -552,7 +621,7 @@ export default function Home() {
       </section>
 
       {/* Industries Section */}
-      <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={researchRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
@@ -583,7 +652,7 @@ export default function Home() {
       </section>
 
       {/* Company Section */}
-      <section id="company" className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="company" className="py-16 px-4 sm:px-6 lg:px-8" ref={companyRef}>
         <div className="max-w-4xl mx-auto text-center reveal">
           <h2 className="heading-lg text-gray-900 mb-6">
             Transform the way you work with secure AI agents, advanced search, and leading generative AI - all in one place.

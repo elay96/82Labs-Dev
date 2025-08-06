@@ -188,35 +188,64 @@
   }
 }
 
-/* Scroll reveal animations */
+/* Advanced scroll reveal animations */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: transform, opacity;
 }
 
 .reveal.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-/* Stagger animations for lists */
+/* Progressive reveal based on scroll progress */
+.reveal {
+  --scroll-progress: 0;
+}
+
+.reveal:not(.revealed) {
+  transform: translateY(calc(30px * (1 - var(--scroll-progress)))) 
+             scale(calc(0.95 + 0.05 * var(--scroll-progress)));
+  opacity: var(--scroll-progress);
+}
+
+/* Advanced stagger animations */
 .stagger-item {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
+  transform: translateY(20px) rotateX(10deg);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: transform, opacity;
+  perspective: 1000px;
 }
 
 .stagger-item.animate {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) rotateX(0deg);
 }
 
-.stagger-item:nth-child(1) { transition-delay: 0.1s; }
-.stagger-item:nth-child(2) { transition-delay: 0.2s; }
-.stagger-item:nth-child(3) { transition-delay: 0.3s; }
-.stagger-item:nth-child(4) { transition-delay: 0.4s; }
-.stagger-item:nth-child(5) { transition-delay: 0.5s; }
+.stagger-item:nth-child(1) { 
+  transition-delay: 0.1s; 
+  transition-duration: 0.8s;
+}
+.stagger-item:nth-child(2) { 
+  transition-delay: 0.25s; 
+  transition-duration: 0.85s;
+}
+.stagger-item:nth-child(3) { 
+  transition-delay: 0.4s; 
+  transition-duration: 0.9s;
+}
+.stagger-item:nth-child(4) { 
+  transition-delay: 0.55s; 
+  transition-duration: 0.95s;
+}
+.stagger-item:nth-child(5) { 
+  transition-delay: 0.7s; 
+  transition-duration: 1s;
+}
 
 /* Model card transitions */
 .model-card {
@@ -285,4 +314,125 @@
     transform: scale(1.1) rotate(180deg);
     opacity: 0.8;
   }
+}
+
+/* Advanced scroll-triggered animations */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px) rotateY(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px) rotateY(15deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+
+@keyframes scaleInRotate {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Scroll-based parallax effects */
+.parallax-element {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Advanced text animations */
+.text-reveal {
+  overflow: hidden;
+}
+
+.text-reveal .line {
+  transform: translateY(100%);
+  display: inline-block;
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.text-reveal.revealed .line {
+  transform: translateY(0);
+}
+
+.text-reveal .line:nth-child(1) { transition-delay: 0.1s; }
+.text-reveal .line:nth-child(2) { transition-delay: 0.2s; }
+.text-reveal .line:nth-child(3) { transition-delay: 0.3s; }
+
+/* Intersection observer animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Scroll progress indicators */
+.scroll-progress {
+  position: relative;
+}
+
+.scroll-progress::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #8B5CF6, #EC4899, #F97316);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 0.1s linear;
 }

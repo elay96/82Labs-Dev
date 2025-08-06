@@ -38,21 +38,37 @@ Preferred communication style: Simple, everyday language.
 
 ## Key Components
 
-### 1. Database Layer
+### 1. Advanced Animation System
+- **Scroll Progress Tracking**: Visual progress indicator with gradient styling
+- **Intersection Observer**: Precise timing for reveal animations with staggered effects
+- **Parallax Effects**: Subtle depth with different scroll speeds per section
+- **Progressive Reveals**: CSS custom properties for scroll-based animation progression
+- **Touch Gestures**: Swipe navigation for mobile devices with haptic feedback
+- **Micro-interactions**: Hover states, rotation effects, and color transitions
+
+### 2. Interactive Service Showcase
+- **Dropdown Navigation**: Three service options (Fullstack, Automation, Lectures)
+- **Gradient Morphing**: Smooth transitions between unique gradient backgrounds
+- **Card Animations**: Scale, rotation, and translation effects with precise timing
+- **Navigation Dots**: Interactive indicators with smooth state transitions
+- **Keyboard Support**: Arrow key navigation and escape key handling
+
+### 3. Database Layer
 - **ORM**: Drizzle with PostgreSQL dialect
 - **Schema**: Shared schema definitions in `/shared/schema.ts`
 - **Tables**: Users and contact submissions with UUID primary keys
 - **Validation**: Zod schemas for runtime type checking
 
-### 2. API Layer
+### 4. API Layer
 - **Contact Endpoint**: POST `/api/contact` for form submissions
 - **Admin Endpoint**: GET `/api/contact-submissions` for retrieving submissions
 - **Error Handling**: Centralized error handling with proper HTTP status codes
 - **Request Logging**: Custom middleware for API request/response logging
 
 ### 3. Frontend Components
-- **Three.js Background**: Animated icosahedron particles with custom materials
-- **Responsive Design**: Mobile-first approach with hamburger navigation
+- **Interactive Service Cards**: Cohere-inspired dropdown with swipe navigation and gradient transitions
+- **Advanced Scroll Animations**: Precise timing with intersection observers, parallax effects, and progress tracking
+- **Responsive Design**: Mobile-first approach with hamburger navigation and touch gestures
 - **Modal System**: Custom modal component with portal rendering and keyboard shortcuts
 - **Form Components**: Reusable form elements with consistent validation
 
