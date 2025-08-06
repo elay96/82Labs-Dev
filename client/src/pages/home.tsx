@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Menu,
   X,
@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ArrowRight
 } from "lucide-react";
+import logoImg from "@assets/IMG_4364_1754462674951.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +31,44 @@ export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeModel, setActiveModel] = useState("command");
+  const [navBackground, setNavBackground] = useState(false);
   const { toast } = useToast();
+
+  // Scroll reveal effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setNavBackground(window.scrollY > 20);
+      
+      // Reveal elements on scroll
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach((element) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('revealed');
+        }
+      });
+      
+      // Stagger animations
+      const staggerItems = document.querySelectorAll('.stagger-item:not(.animate)');
+      staggerItems.forEach((element) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 100;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('animate');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on mount
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -77,15 +115,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 minimal-nav">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        navBackground ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white/80 backdrop-blur-sm'
+      } border-b border-gray-200`}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <img 
-                src="./attached_assets/IMG_4364_1754462674951.png" 
+                src={logoImg} 
                 alt="82 Labs" 
-                className="h-8"
+                className="h-8 transition-transform hover:scale-105 duration-300"
                 data-testid="logo-82labs"
               />
             </div>
@@ -94,35 +134,35 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection("platform")} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-platform"
               >
                 Platform
               </button>
               <button 
                 onClick={() => scrollToSection("solutions")} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-solutions"
               >
                 Solutions
               </button>
               <button 
                 onClick={() => scrollToSection("research")} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-research"
               >
                 Research
               </button>
               <button 
                 onClick={() => scrollToSection("resources")} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-resources"
               >
                 Resources
               </button>
               <button 
                 onClick={() => scrollToSection("company")} 
-                className="text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-company"
               >
                 Company
@@ -151,7 +191,7 @@ export default function Home() {
           
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4 mobile-menu">
+            <div className="md:hidden border-t border-gray-200 py-4 mobile-menu animate-in slide-in-from-top duration-300">
               <div className="space-y-4">
                 <button 
                   onClick={() => scrollToSection("platform")} 
@@ -216,38 +256,40 @@ export default function Home() {
       <section id="hero" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           {/* Trusted by companies badge */}
-          <div className="mb-8">
+          <div className="mb-8 fade-in">
             <p className="text-sm text-gray-600 mb-4">Trusted by industry leaders and developers worldwide</p>
             <div className="flex justify-center items-center space-x-8 opacity-60">
-              <span className="text-lg font-semibold">ext</span>
-              <span className="text-lg font-semibold">ENSEMBLE</span>
-              <span className="text-lg font-semibold">TD Bank</span>
+              <span className="text-lg font-semibold stagger-item">ext</span>
+              <span className="text-lg font-semibold stagger-item">ENSEMBLE</span>
+              <span className="text-lg font-semibold stagger-item">TD Bank</span>
             </div>
           </div>
           
-          <h1 className="heading-xl text-gray-900 mb-6 max-w-3xl mx-auto">
+          <h1 className="heading-xl text-gray-900 mb-6 max-w-3xl mx-auto fade-in-delay-1">
             The all-in-one platform for private and secure AI
           </h1>
           
-          <p className="body-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="body-lg text-gray-600 mb-8 max-w-2xl mx-auto fade-in-delay-2">
             82 Labs brings you cutting-edge multilingual models, advanced retrieval, and an AI workspace 
             tailored for the modern enterprise — all within a single, secure platform.
           </p>
           
-          <Button
-            onClick={() => setIsContactModalOpen(true)}
-            className="minimal-button minimal-button-primary text-lg px-8 py-4"
-            data-testid="button-request-demo-hero"
-          >
-            Request a demo
-          </Button>
+          <div className="fade-in-delay-3">
+            <Button
+              onClick={() => setIsContactModalOpen(true)}
+              className="minimal-button minimal-button-primary text-lg px-8 py-4"
+              data-testid="button-request-demo-hero"
+            >
+              Request a demo
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Models Section */}
       <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
               State-of-the-art generative and retrieval models
             </h2>
@@ -257,33 +299,34 @@ export default function Home() {
           </div>
 
           {/* Model Selector */}
-          <div className="mb-8">
+          <div className="mb-8 reveal">
             <div className="flex justify-center">
               <div className="inline-flex items-center border-b-2 border-orange-200">
                 <button
                   onClick={() => setActiveModel("command")}
-                  className={`px-4 py-2 font-medium ${
+                  className={`px-4 py-2 font-medium transition-all duration-300 ${
                     activeModel === "command" 
                       ? "text-gray-900 border-b-2 border-gray-900 -mb-0.5" 
-                      : "text-gray-600"
+                      : "text-gray-600 hover:text-gray-800"
                   }`}
                 >
                   Command
                 </button>
-                <ChevronDown className="w-5 h-5 text-gray-400 ml-2" />
+                <ChevronDown className="w-5 h-5 text-gray-400 ml-2 transition-transform hover:rotate-180 duration-300" />
               </div>
             </div>
           </div>
 
           {/* Model Card */}
-          <div className="minimal-card max-w-md mx-auto bg-gray-900 text-white">
+          <div className="minimal-card max-w-md mx-auto bg-gray-900 text-white reveal">
             <h3 className="text-xl font-semibold mb-4">Command</h3>
             <p className="text-gray-300 mb-6">
               Streamline your workflows with advanced language models for generating text, 
               analyzing documents, and building AI assistants
             </p>
-            <button className="flex items-center text-white hover:text-gray-300 transition-colors">
-              Learn more <ArrowRight className="w-4 h-4 ml-2" />
+            <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group">
+              Learn more 
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </div>
@@ -292,7 +335,7 @@ export default function Home() {
       {/* Features Section */}
       <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
               Build high-impact applications grounded in your proprietary data
             </h2>
@@ -300,8 +343,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Scalable */}
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4">
+            <div className="text-center stagger-item">
+              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
                   <rect x="3" y="3" width="7" height="7" rx="1"/>
                   <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -317,8 +360,8 @@ export default function Home() {
             </div>
 
             {/* Accurate */}
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4">
+            <div className="text-center stagger-item">
+              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
                 </svg>
@@ -331,8 +374,8 @@ export default function Home() {
             </div>
 
             {/* Secure */}
-            <div className="text-center">
-              <div className="w-12 h-12 mx-auto mb-4">
+            <div className="text-center stagger-item">
+              <div className="w-12 h-12 mx-auto mb-4 transition-transform hover:scale-110 duration-300">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                   <circle cx="12" cy="16" r="1"/>
@@ -352,7 +395,7 @@ export default function Home() {
       {/* Industries Section */}
       <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 reveal">
             <h2 className="heading-lg text-gray-900 mb-4">
               AI solutions for the world's most complex industries
             </h2>
@@ -360,19 +403,19 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Technology */}
-            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden" 
+            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
                  style={{backgroundImage: "url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
-              <div className="absolute inset-0 bg-black/40"></div>
-              <div className="absolute bottom-6 left-6 text-white">
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
+              <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Technology</h3>
               </div>
             </div>
 
             {/* Finance */}
-            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden" 
+            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
                  style={{backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
-              <div className="absolute inset-0 bg-black/40"></div>
-              <div className="absolute bottom-6 left-6 text-white">
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
+              <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Finance</h3>
               </div>
             </div>
@@ -382,12 +425,13 @@ export default function Home() {
 
       {/* Company Section */}
       <section id="company" className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center reveal">
           <h2 className="heading-lg text-gray-900 mb-6">
             Transform the way you work with secure AI agents, advanced search, and leading generative AI - all in one place.
           </h2>
-          <button className="flex items-center justify-center mx-auto text-gray-900 hover:text-gray-600 transition-colors font-medium">
-            Learn more <ArrowRight className="w-5 h-5 ml-2" />
+          <button className="flex items-center justify-center mx-auto text-gray-900 hover:text-gray-600 transition-all duration-300 font-medium group">
+            Learn more 
+            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </section>
