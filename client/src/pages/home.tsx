@@ -35,6 +35,7 @@ export default function Home() {
   const [navBackground, setNavBackground] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   // Refs for scroll animations
@@ -426,7 +427,7 @@ export default function Home() {
       </section>
 
       {/* Models Section */}
-      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={platformRef}>
+      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 relative" ref={platformRef} style={{zIndex: 1}}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
             <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-space-mono">
@@ -440,7 +441,7 @@ export default function Home() {
           {/* Model Selector */}
           <div className="mb-8 reveal">
             <div className="flex justify-center">
-              <div className="relative dropdown-container" style={{zIndex: 99999}}>
+              <div ref={dropdownRef} className="relative dropdown-container" style={{zIndex: 999999, position: 'relative'}}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="inline-flex items-center px-4 py-2 font-medium text-gray-900 border-b-2 border-orange-200 transition-all duration-300 hover:border-orange-300 focus:outline-none focus:border-orange-400"
@@ -455,7 +456,7 @@ export default function Home() {
                 
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <div className="absolute dropdown-menu top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200" style={{zIndex: 100000}}>
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200 dropdown-menu" style={{zIndex: 999999}}>
                     {models.map((model) => (
                       <button
                         key={model.id}

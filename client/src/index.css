@@ -316,13 +316,17 @@
 /* Z-index management for proper layering */
 .dropdown-container {
   position: relative;
-  z-index: 99999 !important;
+  z-index: 999999 !important;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .dropdown-menu {
   position: absolute;
-  z-index: 100000 !important;
+  z-index: 999999 !important;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Enhanced gradient morphing with smoother transitions */
