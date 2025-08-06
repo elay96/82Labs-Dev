@@ -81,13 +81,13 @@ export default function Home() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="flex space-x-1">
-                <div className="w-3 h-3 rounded-full logo-dot-green"></div>
-                <div className="w-3 h-3 rounded-full logo-dot-orange"></div>
-                <div className="w-3 h-3 rounded-full logo-dot-purple"></div>
-              </div>
-              <span className="text-xl font-semibold text-gray-900">82 Labs</span>
+            <div className="flex items-center">
+              <img 
+                src="./attached_assets/IMG_4364_1754462674951.png" 
+                alt="82 Labs" 
+                className="h-8"
+                data-testid="logo-82labs"
+              />
             </div>
             
             {/* Desktop Navigation */}

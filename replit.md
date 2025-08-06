@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern single-page marketing website built with a full-stack TypeScript architecture. The application showcases 82 Labs' AI automation and custom software development services through an interactive, visually stunning interface featuring 3D graphics, smooth animations, and responsive design.
+This is a modern single-page marketing website built with a full-stack TypeScript architecture. The application showcases 82 Labs' AI automation and custom software development services through a clean, minimal interface inspired by Cohere's design system, featuring light backgrounds, simple typography, and professional aesthetics.
 
 ## User Preferences
 
@@ -13,10 +13,10 @@ Preferred communication style: Simple, everyday language.
 ### Frontend Architecture
 - **Framework**: React 18 with TypeScript and Vite for fast development and hot reloading
 - **Routing**: Wouter for lightweight client-side routing
-- **Styling**: Tailwind CSS with CSS variables for theming and custom color palette
+- **Styling**: Tailwind CSS with minimal color palette inspired by Cohere's design system
 - **UI Components**: Radix UI primitives with shadcn/ui component library for consistent, accessible design
-- **3D Graphics**: Three.js with React Three Fiber for animated background elements (floating icosahedrons)
-- **Animations**: Framer Motion for smooth page transitions and scroll-triggered animations
+- **Typography**: Inter font for clean, modern text rendering
+- **Design System**: 100% minimalism with light backgrounds, simple navigation, and clean layouts
 - **Forms**: React Hook Form with Zod validation for type-safe form handling
 - **State Management**: TanStack Query for server state management with built-in caching
 
