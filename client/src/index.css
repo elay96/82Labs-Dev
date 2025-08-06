@@ -188,42 +188,62 @@
   }
 }
 
-/* Advanced scroll reveal animations */
+/* Responsive scroll reveal animations */
 .reveal {
   opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: transform, opacity;
 }
 
 .reveal.revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
-/* Progressive reveal based on scroll progress */
+/* Mobile-friendly progressive reveal */
 .reveal {
   --scroll-progress: 0;
 }
 
-.reveal:not(.revealed) {
-  transform: translateY(calc(30px * (1 - var(--scroll-progress)))) 
-             scale(calc(0.95 + 0.05 * var(--scroll-progress)));
-  opacity: var(--scroll-progress);
+@media (min-width: 768px) {
+  .reveal {
+    transform: translateY(30px) scale(0.98);
+  }
+  
+  .reveal.revealed {
+    transform: translateY(0) scale(1);
+  }
+  
+  .reveal:not(.revealed) {
+    transform: translateY(calc(30px * (1 - var(--scroll-progress)))) 
+               scale(calc(0.98 + 0.02 * var(--scroll-progress)));
+    opacity: var(--scroll-progress);
+  }
 }
 
-/* Advanced stagger animations */
+/* Mobile-optimized stagger animations */
 .stagger-item {
   opacity: 0;
-  transform: translateY(20px) rotateX(10deg);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform: translateY(15px);
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: transform, opacity;
-  perspective: 1000px;
 }
 
 .stagger-item.animate {
   opacity: 1;
-  transform: translateY(0) rotateX(0deg);
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .stagger-item {
+    transform: translateY(20px) rotateX(5deg);
+    perspective: 1000px;
+  }
+  
+  .stagger-item.animate {
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
 .stagger-item:nth-child(1) { 

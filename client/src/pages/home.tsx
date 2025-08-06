@@ -48,21 +48,21 @@ export default function Home() {
       id: "fullstack",
       name: "Fullstack",
       title: "Fullstack Development",
-      description: "Build complete web applications with modern technologies, from database design to user interface implementation.",
+      description: "End-to-end web and mobile applications using React, Node.js, Python, and modern cloud infrastructure. From MVP to enterprise scale.",
       gradient: "from-purple-400 via-pink-400 to-orange-400"
     },
     {
       id: "automation", 
       name: "Automation",
-      title: "AI Automation",
-      description: "Streamline your workflows with intelligent automation solutions that integrate seamlessly with your existing systems.",
+      title: "Intelligent Automation",
+      description: "Complex workflow automation using n8n and LangGraph. AI-powered processes that integrate with your existing tools and systems.",
       gradient: "from-blue-400 via-purple-400 to-pink-400"
     },
     {
       id: "lectures",
       name: "Lectures", 
-      title: "Technical Lectures",
-      description: "Expert-led training sessions on cutting-edge technologies, designed to upskill your team with practical knowledge.",
+      title: "n8n Training & Consulting",
+      description: "Official n8n lecturing and training programs. Transform your team into automation experts with hands-on workshops and consulting.",
       gradient: "from-green-400 via-blue-400 to-purple-400"
     }
   ];
@@ -133,9 +133,12 @@ export default function Home() {
           const yPos = -(scrollY * speed);
           const opacity = Math.max(0, Math.min(1, 1 - Math.abs(rect.top) / window.innerHeight));
           
-          // Apply subtle parallax and opacity changes
-          ref.current.style.transform = `translateY(${yPos * 0.1}px)`;
-          ref.current.style.opacity = opacity.toString();
+          // Apply subtle parallax effects only on desktop
+          if (window.innerWidth > 768) {
+            ref.current.style.transform = `translateY(${yPos * 0.05}px)`;
+          }
+          // Keep opacity normal for mobile
+          ref.current.style.opacity = window.innerWidth > 768 ? opacity.toString() : '1';
         }
       });
     };
@@ -391,21 +394,21 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           {/* Trusted by companies badge */}
           <div className="mb-8 fade-in">
-            <p className="text-sm text-gray-600 mb-4">Trusted by industry leaders and developers worldwide</p>
-            <div className="flex justify-center items-center space-x-8 opacity-60">
-              <span className="text-lg font-semibold stagger-item">ext</span>
-              <span className="text-lg font-semibold stagger-item">ENSEMBLE</span>
-              <span className="text-lg font-semibold stagger-item">TD Bank</span>
+            <p className="text-sm text-gray-600 mb-4">Trusted by startups and enterprises worldwide</p>
+            <div className="flex justify-center items-center space-x-4 md:space-x-8 opacity-60 text-sm md:text-base">
+              <span className="font-semibold stagger-item">TechCorp</span>
+              <span className="font-semibold stagger-item">InnovateLabs</span>
+              <span className="font-semibold stagger-item">DataFlow Inc</span>
             </div>
           </div>
           
-          <h1 className="heading-xl text-gray-900 mb-6 max-w-3xl mx-auto fade-in-delay-1">
-            The all-in-one platform for private and secure AI
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 max-w-4xl mx-auto fade-in-delay-1 leading-tight">
+            Expert Software Development & Automation Solutions
           </h1>
           
-          <p className="body-lg text-gray-600 mb-8 max-w-2xl mx-auto fade-in-delay-2">
-            82 Labs brings you cutting-edge multilingual models, advanced retrieval, and an AI workspace 
-            tailored for the modern enterprise — all within a single, secure platform.
+          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-delay-2 leading-relaxed">
+            82 Labs delivers complex fullstack applications for web and mobile, powered by cutting-edge automation 
+            technologies including n8n and LangGraph. Official n8n lecturers with enterprise-grade expertise.
           </p>
           
           <div className="fade-in-delay-3">
@@ -423,13 +426,12 @@ export default function Home() {
       {/* Models Section */}
       <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={platformRef}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal text-reveal">
-            <h2 className="heading-lg text-gray-900 mb-4">
-              <span className="line">State-of-the-art generative</span> 
-              <span className="line">and retrieval models</span>
+          <div className="text-center mb-12 reveal">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+              Our Core Services
             </h2>
-            <p className="body-lg text-gray-600 max-w-2xl mx-auto fade-in-up">
-              Unlock the unlimited potential of AI with our three model families — designed to meet the diverse needs of enterprises.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Three specialized domains where we excel — delivering comprehensive solutions from concept to deployment.
             </p>
           </div>
 
@@ -534,9 +536,9 @@ export default function Home() {
                     <span className="text-sm font-medium text-gray-700">{currentModel.title}</span>
                   </div>
                   <p className="text-xs text-gray-500">
-                    {currentModel.id === 'fullstack' && 'Building responsive React applications'}
-                    {currentModel.id === 'automation' && 'Processing 1,247 tasks automatically'}
-                    {currentModel.id === 'lectures' && '52 students currently attending'}
+                    {currentModel.id === 'fullstack' && 'React + Node.js + Cloud Infrastructure'}
+                    {currentModel.id === 'automation' && 'n8n + LangGraph + AI Integration'}
+                    {currentModel.id === 'lectures' && 'Official n8n Certification Program'}
                   </p>
                 </div>
               </div>
@@ -562,11 +564,13 @@ export default function Home() {
       {/* Features Section */}
       <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8" ref={solutionsRef}>
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal text-reveal">
-            <h2 className="heading-lg text-gray-900 mb-4">
-              <span className="line">Build high-impact applications</span>
-              <span className="line">grounded in your proprietary data</span>
+          <div className="text-center mb-12 reveal">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose 82 Labs
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Our approach combines technical excellence with proven methodologies to deliver exceptional results.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -580,10 +584,10 @@ export default function Home() {
                   <rect x="3" y="14" width="7" height="7" rx="1"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-purple-700 duration-300">Scalable</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-purple-700 duration-300">Enterprise-Ready</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
-                Take applications from proof of concept to full production with our compressed, enterprise-focused 
-                models — built to limit costs while maximizing performance.
+                From rapid prototypes to production-scale applications. We build robust, maintainable solutions 
+                that grow with your business using modern cloud-native architectures.
               </p>
             </div>
 
@@ -594,10 +598,10 @@ export default function Home() {
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-blue-700 duration-300">Accurate</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-blue-700 duration-300">Automation Experts</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
-                Fine-tune our models to your company data with built-in retrieval-augmented generation (RAG), 
-                providing verifiable outputs grounded in your sources of truth.
+                Specialized in n8n and LangGraph workflows. We create intelligent automation systems that 
+                reduce manual work and integrate seamlessly with your existing business processes.
               </p>
             </div>
 
@@ -610,10 +614,10 @@ export default function Home() {
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-green-700 duration-300">Secure</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-green-700 duration-300">Training & Support</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
-                Keep your critical data protected with enterprise-grade security, advanced access controls, 
-                and private deployment options.
+                Official n8n lecturers providing comprehensive training programs. We don't just build solutions — 
+                we empower your team with the knowledge to maintain and extend them.
               </p>
             </div>
           </div>
@@ -624,9 +628,12 @@ export default function Home() {
       <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={researchRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
-            <h2 className="heading-lg text-gray-900 mb-4">
-              AI solutions for the world's most complex industries
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+              Industries We Serve
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From fintech to healthcare, we deliver specialized solutions across complex industries.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -635,7 +642,8 @@ export default function Home() {
                  style={{backgroundImage: "url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
-                <h3 className="text-2xl font-semibold mb-2">Technology</h3>
+                <h3 className="text-2xl font-semibold mb-2">Fintech & SaaS</h3>
+                <p className="text-sm opacity-90">Complex financial applications and enterprise software</p>
               </div>
             </div>
 
@@ -644,7 +652,8 @@ export default function Home() {
                  style={{backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
-                <h3 className="text-2xl font-semibold mb-2">Finance</h3>
+                <h3 className="text-2xl font-semibold mb-2">Healthcare & AI</h3>
+                <p className="text-sm opacity-90">Intelligent automation and data processing solutions</p>
               </div>
             </div>
           </div>
@@ -654,13 +663,22 @@ export default function Home() {
       {/* Company Section */}
       <section id="company" className="py-16 px-4 sm:px-6 lg:px-8" ref={companyRef}>
         <div className="max-w-4xl mx-auto text-center reveal">
-          <h2 className="heading-lg text-gray-900 mb-6">
-            Transform the way you work with secure AI agents, advanced search, and leading generative AI - all in one place.
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6">
+            Ready to transform your business with intelligent automation and expert development?
           </h2>
-          <button className="flex items-center justify-center mx-auto text-gray-900 hover:text-gray-600 transition-all duration-300 font-medium group">
-            Learn more 
-            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              onClick={() => setIsContactModalOpen(true)}
+              className="minimal-button minimal-button-primary"
+              data-testid="button-get-started"
+            >
+              Get Started Today
+            </Button>
+            <button className="flex items-center text-gray-900 hover:text-gray-600 transition-all duration-300 font-medium group">
+              View Our Work 
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
       </section>
 
