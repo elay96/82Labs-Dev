@@ -30,9 +30,36 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeModel, setActiveModel] = useState("command");
+  const [activeModel, setActiveModel] = useState("fullstack");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
   const { toast } = useToast();
+
+  const models = [
+    {
+      id: "fullstack",
+      name: "Fullstack",
+      title: "Fullstack Development",
+      description: "Build complete web applications with modern technologies, from database design to user interface implementation.",
+      gradient: "from-purple-400 via-pink-400 to-orange-400"
+    },
+    {
+      id: "automation", 
+      name: "Automation",
+      title: "AI Automation",
+      description: "Streamline your workflows with intelligent automation solutions that integrate seamlessly with your existing systems.",
+      gradient: "from-blue-400 via-purple-400 to-pink-400"
+    },
+    {
+      id: "lectures",
+      name: "Lectures", 
+      title: "Technical Lectures",
+      description: "Expert-led training sessions on cutting-edge technologies, designed to upskill your team with practical knowledge.",
+      gradient: "from-green-400 via-blue-400 to-purple-400"
+    }
+  ];
+
+  const currentModel = models.find(m => m.id === activeModel) || models[0];
 
   // Scroll reveal effect
   useEffect(() => {
@@ -69,6 +96,46 @@ export default function Home() {
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle click outside dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdown = document.querySelector('.dropdown-container');
+      if (dropdown && !dropdown.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+      if (event.key === 'ArrowLeft') {
+        const currentIndex = models.findIndex(m => m.id === activeModel);
+        const newIndex = currentIndex > 0 ? currentIndex - 1 : models.length - 1;
+        setActiveModel(models[newIndex].id);
+      }
+      if (event.key === 'ArrowRight') {
+        const currentIndex = models.findIndex(m => m.id === activeModel);
+        const newIndex = currentIndex < models.length - 1 ? currentIndex + 1 : 0;
+        setActiveModel(models[newIndex].id);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModel, models]);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -301,33 +368,125 @@ export default function Home() {
           {/* Model Selector */}
           <div className="mb-8 reveal">
             <div className="flex justify-center">
-              <div className="inline-flex items-center border-b-2 border-orange-200">
+              <div className="relative dropdown-container">
                 <button
-                  onClick={() => setActiveModel("command")}
-                  className={`px-4 py-2 font-medium transition-all duration-300 ${
-                    activeModel === "command" 
-                      ? "text-gray-900 border-b-2 border-gray-900 -mb-0.5" 
-                      : "text-gray-600 hover:text-gray-800"
-                  }`}
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="inline-flex items-center px-4 py-2 font-medium text-gray-900 border-b-2 border-orange-200 transition-all duration-300 hover:border-orange-300 focus:outline-none focus:border-orange-400"
+                  aria-haspopup="true"
+                  aria-expanded={isDropdownOpen}
                 >
-                  Command
+                  {currentModel.name}
+                  <ChevronDown className={`w-5 h-5 text-gray-400 ml-2 transition-transform duration-300 ${
+                    isDropdownOpen ? 'rotate-180' : ''
+                  }`} />
                 </button>
-                <ChevronDown className="w-5 h-5 text-gray-400 ml-2 transition-transform hover:rotate-180 duration-300" />
+                
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200">
+                    {models.map((model) => (
+                      <button
+                        key={model.id}
+                        onClick={() => {
+                          setActiveModel(model.id);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg focus:outline-none focus:bg-gray-50 ${
+                          activeModel === model.id ? 'bg-gray-50 text-gray-900' : 'text-gray-600'
+                        }`}
+                      >
+                        {model.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
+            </div>
+            
+            {/* Navigation hint */}
+            <div className="text-center mt-4">
+              <p className="text-xs text-gray-400">Use arrow keys to navigate • Swipe on mobile</p>
             </div>
           </div>
 
-          {/* Model Card */}
-          <div className="minimal-card max-w-md mx-auto bg-gray-900 text-white reveal">
-            <h3 className="text-xl font-semibold mb-4">Command</h3>
-            <p className="text-gray-300 mb-6">
-              Streamline your workflows with advanced language models for generating text, 
-              analyzing documents, and building AI assistants
-            </p>
-            <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group">
-              Learn more 
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </button>
+          {/* Model Card with Touch Support */}
+          <div className="max-w-md mx-auto reveal touch-pan-x">
+            <div 
+              className="model-card-container"
+              onTouchStart={(e) => {
+                const touch = e.touches[0];
+                e.currentTarget.setAttribute('data-start-x', touch.clientX.toString());
+              }}
+              onTouchEnd={(e) => {
+                const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > 50) { // Threshold for swipe
+                  const currentIndex = models.findIndex(m => m.id === activeModel);
+                  if (diff > 0 && currentIndex < models.length - 1) {
+                    // Swipe left - next
+                    setActiveModel(models[currentIndex + 1].id);
+                  } else if (diff < 0 && currentIndex > 0) {
+                    // Swipe right - previous
+                    setActiveModel(models[currentIndex - 1].id);
+                  }
+                }
+              }}
+            >
+              <div className="bg-gray-900 text-white rounded-t-2xl p-6 relative overflow-hidden">
+                <h3 className="text-xl font-semibold mb-4 transition-all duration-500">{currentModel.title}</h3>
+                <p className="text-gray-300 mb-6 transition-all duration-500">
+                  {currentModel.description}
+                </p>
+                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group">
+                  Learn more 
+                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+              
+              {/* Gradient Background */}
+              <div 
+                key={currentModel.id}
+                className={`h-64 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-700 ease-in-out`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20"></div>
+                
+                {/* Abstract Shapes */}
+                <div className="absolute inset-0">
+                  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/20 rounded-full blur-xl shape-pulse"></div>
+                  <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-white/30 rounded-full blur-lg shape-pulse" style={{ animationDelay: '1s' }}></div>
+                  <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-white/25 rounded-full blur-md shape-pulse" style={{ animationDelay: '2s' }}></div>
+                </div>
+                
+                {/* Interactive Demo Card */}
+                <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg transition-all duration-500">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-gray-700">{currentModel.title}</span>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    {currentModel.id === 'fullstack' && 'Building responsive React applications'}
+                    {currentModel.id === 'automation' && 'Processing 1,247 tasks automatically'}
+                    {currentModel.id === 'lectures' && '52 students currently attending'}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Navigation Dots */}
+            <div className="flex justify-center space-x-2 mt-4">
+              {models.map((model, index) => (
+                <button
+                  key={model.id}
+                  onClick={() => setActiveModel(model.id)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeModel === model.id ? 'bg-gray-700 w-6' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`View ${model.name}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
