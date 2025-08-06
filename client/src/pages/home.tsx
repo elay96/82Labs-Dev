@@ -34,6 +34,7 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { toast } = useToast();
 
   // Refs for scroll animations
@@ -188,12 +189,20 @@ export default function Home() {
       if (event.key === 'ArrowLeft') {
         const currentIndex = models.findIndex(m => m.id === activeModel);
         const newIndex = currentIndex > 0 ? currentIndex - 1 : models.length - 1;
-        setActiveModel(models[newIndex].id);
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setActiveModel(models[newIndex].id);
+          setIsTransitioning(false);
+        }, 200);
       }
       if (event.key === 'ArrowRight') {
         const currentIndex = models.findIndex(m => m.id === activeModel);
         const newIndex = currentIndex < models.length - 1 ? currentIndex + 1 : 0;
-        setActiveModel(models[newIndex].id);
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setActiveModel(models[newIndex].id);
+          setIsTransitioning(false);
+        }, 200);
       }
     };
 
@@ -451,7 +460,11 @@ export default function Home() {
                       <button
                         key={model.id}
                         onClick={() => {
-                          setActiveModel(model.id);
+                          setIsTransitioning(true);
+                          setTimeout(() => {
+                            setActiveModel(model.id);
+                            setIsTransitioning(false);
+                          }, 200);
                           setIsDropdownOpen(false);
                         }}
                         className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg focus:outline-none focus:bg-gray-50 ${
@@ -473,7 +486,7 @@ export default function Home() {
           </div>
 
           {/* Model Card with Touch Support */}
-          <div className="max-w-md mx-auto reveal touch-pan-x relative z-10">
+          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative z-10 lg:w-4/5">
             <div 
               className="model-card-container"
               onTouchStart={(e) => {
@@ -489,31 +502,45 @@ export default function Home() {
                   const currentIndex = models.findIndex(m => m.id === activeModel);
                   if (diff > 0 && currentIndex < models.length - 1) {
                     // Swipe left - next
-                    setActiveModel(models[currentIndex + 1].id);
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setActiveModel(models[currentIndex + 1].id);
+                      setIsTransitioning(false);
+                    }, 200);
                   } else if (diff < 0 && currentIndex > 0) {
                     // Swipe right - previous
-                    setActiveModel(models[currentIndex - 1].id);
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setActiveModel(models[currentIndex - 1].id);
+                      setIsTransitioning(false);
+                    }, 200);
                   }
                 }
               }}
             >
-              <div className="bg-gray-900 text-white rounded-t-2xl p-6 relative overflow-hidden">
-                <h3 className="text-xl font-semibold mb-4 transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">{currentModel.title}</h3>
-                <p className="text-gray-300 mb-6 transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
+              <div className="bg-gray-900 text-white rounded-t-2xl p-8 lg:p-12 relative overflow-hidden">
+                {/* Moving transition element */}
+                <div className={`card-moving-element ${isTransitioning ? 'active' : ''}`}></div>
+                
+                <h3 className="text-2xl lg:text-3xl font-semibold mb-6 card-content-transition font-space-mono">{currentModel.title}</h3>
+                <p className="text-gray-300 mb-8 text-lg lg:text-xl leading-relaxed card-content-transition">
                   {currentModel.description}
                 </p>
-                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group">
+                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg">
                   Learn more 
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
               
               {/* Gradient Background */}
               <div 
                 key={currentModel.id}
-                className={`h-64 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]`}
+                className={`h-80 lg:h-96 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]`}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20 card-content-transition"></div>
+                
+                {/* Moving transition element */}
+                <div className={`card-moving-element ${isTransitioning ? 'active' : ''}`}></div>
                 
                 {/* Abstract Shapes */}
                 <div className="absolute inset-0">
@@ -523,12 +550,12 @@ export default function Home() {
                 </div>
                 
                 {/* Interactive Demo Card */}
-                <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-gray-700">{currentModel.title}</span>
+                <div className="absolute bottom-6 left-6 right-6 bg-white rounded-xl p-6 shadow-lg card-content-transition">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-base font-semibold text-gray-700">{currentModel.title}</span>
                   </div>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {currentModel.id === 'fullstack' && 'React + Node.js + Cloud Infrastructure'}
                     {currentModel.id === 'automation' && 'n8n + LangGraph + AI Integration'}
                     {currentModel.id === 'lectures' && 'Official n8n Certification Program'}
