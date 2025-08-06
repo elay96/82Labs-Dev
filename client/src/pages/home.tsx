@@ -440,7 +440,7 @@ export default function Home() {
           {/* Model Selector */}
           <div className="mb-8 reveal">
             <div className="flex justify-center">
-              <div className="relative dropdown-container z-[100]">
+              <div className="relative dropdown-container" style={{zIndex: 99999}}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="inline-flex items-center px-4 py-2 font-medium text-gray-900 border-b-2 border-orange-200 transition-all duration-300 hover:border-orange-300 focus:outline-none focus:border-orange-400"
@@ -455,7 +455,7 @@ export default function Home() {
                 
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <div className="absolute dropdown-menu top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200 z-[110]">
+                  <div className="absolute dropdown-menu top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200" style={{zIndex: 100000}}>
                     {models.map((model) => (
                       <button
                         key={model.id}
@@ -486,7 +486,7 @@ export default function Home() {
           </div>
 
           {/* Model Card with Touch Support */}
-          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative z-10 lg:w-4/5">
+          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5">
             <div 
               className="model-card-container"
               onTouchStart={(e) => {
@@ -526,7 +526,7 @@ export default function Home() {
                 <p className="text-gray-300 mb-8 text-lg lg:text-xl leading-relaxed card-content-transition">
                   {currentModel.description}
                 </p>
-                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg">
+                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg minimal-button">
                   Learn more 
                   <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
                 </button>
