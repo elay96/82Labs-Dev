@@ -394,15 +394,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           {/* Trusted by companies badge */}
           <div className="mb-8 fade-in">
-            <p className="text-sm text-gray-600 mb-4">Trusted by startups and enterprises worldwide</p>
             <div className="flex justify-center items-center space-x-4 md:space-x-8 opacity-60 text-sm md:text-base">
-              <span className="font-semibold stagger-item">TechCorp</span>
-              <span className="font-semibold stagger-item">InnovateLabs</span>
-              <span className="font-semibold stagger-item">DataFlow Inc</span>
+              <span className="font-semibold stagger-item">BrightData</span>
+              <span className="font-semibold stagger-item">Expluriom</span>
+              <span className="font-semibold stagger-item cursor-pointer hover:opacity-80 transition-opacity">and many more - click to discover</span>
             </div>
           </div>
           
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 max-w-4xl mx-auto fade-in-delay-1 leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 max-w-4xl mx-auto fade-in-delay-1 leading-tight font-arvo">
             Expert Software Development & Automation Solutions
           </h1>
           
@@ -427,7 +426,7 @@ export default function Home() {
       <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={platformRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-arvo">
               Our Core Services
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -565,7 +564,7 @@ export default function Home() {
       <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8" ref={solutionsRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-arvo">
               Why Choose 82 Labs
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -577,14 +576,14 @@ export default function Home() {
             {/* Scalable */}
             <div className="text-center stagger-item fade-in-left">
               <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:rotate-12 duration-500 group">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-purple-600 group-hover:text-purple-700 transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-black transition-colors">
                   <rect x="3" y="3" width="7" height="7" rx="1"/>
                   <rect x="14" y="3" width="7" height="7" rx="1"/>
                   <rect x="14" y="14" width="7" height="7" rx="1"/>
                   <rect x="3" y="14" width="7" height="7" rx="1"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-purple-700 duration-300">Enterprise-Ready</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-gray-700 duration-300">Enterprise-Ready</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 From rapid prototypes to production-scale applications. We build robust, maintainable solutions 
                 that grow with your business using modern cloud-native architectures.
@@ -594,11 +593,11 @@ export default function Home() {
             {/* Accurate */}
             <div className="text-center stagger-item scale-in">
               <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:-rotate-6 duration-500 group">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-blue-600 group-hover:text-blue-700 transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-black transition-colors">
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-blue-700 duration-300">Automation Experts</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-gray-700 duration-300">Automation Experts</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 Specialized in n8n and LangGraph workflows. We create intelligent automation systems that 
                 reduce manual work and integrate seamlessly with your existing business processes.
@@ -608,13 +607,13 @@ export default function Home() {
             {/* Secure */}
             <div className="text-center stagger-item fade-in-right">
               <div className="w-12 h-12 mx-auto mb-4 transition-all hover:scale-110 hover:rotate-6 duration-500 group">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-green-600 group-hover:text-green-700 transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-full h-full text-black transition-colors">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                   <circle cx="12" cy="16" r="1"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-green-700 duration-300">Training & Support</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 transition-colors hover:text-gray-700 duration-300">Training & Support</h3>
               <p className="text-gray-600 transition-all duration-300 hover:text-gray-800">
                 Official n8n lecturers providing comprehensive training programs. We don't just build solutions — 
                 we empower your team with the knowledge to maintain and extend them.
@@ -628,7 +627,7 @@ export default function Home() {
       <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={researchRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-arvo">
               Industries We Serve
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -663,7 +662,7 @@ export default function Home() {
       {/* Company Section */}
       <section id="company" className="py-16 px-4 sm:px-6 lg:px-8" ref={companyRef}>
         <div className="max-w-4xl mx-auto text-center reveal">
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 font-arvo">
             Ready to transform your business with intelligent automation and expert development?
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

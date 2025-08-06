@@ -15,7 +15,7 @@ Preferred communication style: Simple, everyday language.
 - **Routing**: Wouter for lightweight client-side routing
 - **Styling**: Tailwind CSS with minimal color palette inspired by Cohere's design system
 - **UI Components**: Radix UI primitives with shadcn/ui component library for consistent, accessible design
-- **Typography**: Inter font for clean, modern text rendering
+- **Typography**: Poppins for body text and UI elements, Arvo for large headings and titles
 - **Design System**: 100% minimalism with light backgrounds, simple navigation, and clean layouts
 - **Forms**: React Hook Form with Zod validation for type-safe form handling
 - **State Management**: TanStack Query for server state management with built-in caching
