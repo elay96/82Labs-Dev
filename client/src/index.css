@@ -325,16 +325,49 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Gradient morphing */
+/* Enhanced gradient morphing with smoother transitions */
 .gradient-morph {
-  background-size: 300% 300%;
-  animation: gradientShift 8s ease infinite;
+  background-size: 400% 400%;
+  animation: gradientShift 12s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% { 
+    background-position: 0% 50%; 
+    transform: scale(1);
+  }
+  25% { 
+    background-position: 100% 0%; 
+    transform: scale(1.02);
+  }
+  50% { 
+    background-position: 100% 100%; 
+    transform: scale(1);
+  }
+  75% { 
+    background-position: 0% 100%; 
+    transform: scale(1.02);
+  }
+  100% { 
+    background-position: 0% 50%; 
+    transform: scale(1);
+  }
+}
+
+/* Ultra-smooth model card transitions */
+.model-card-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.model-card-container > div {
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Enhanced shape pulse with smoother movement */
+.shape-pulse {
+  animation: shapePulse 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 
 /* Pulse animation for abstract shapes */
@@ -344,12 +377,16 @@
 
 @keyframes shapePulse {
   0%, 100% { 
-    transform: scale(1) rotate(0deg);
-    opacity: 0.6;
+    transform: scale(1) rotate(0deg) translateZ(0);
+    opacity: 0.4;
   }
-  50% { 
-    transform: scale(1.1) rotate(180deg);
-    opacity: 0.8;
+  33% { 
+    transform: scale(1.05) rotate(120deg) translateZ(0);
+    opacity: 0.7;
+  }
+  66% { 
+    transform: scale(1.1) rotate(240deg) translateZ(0);
+    opacity: 0.5;
   }
 }
 

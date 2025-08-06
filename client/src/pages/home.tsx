@@ -504,8 +504,8 @@ export default function Home() {
               }}
             >
               <div className="bg-gray-900 text-white rounded-t-2xl p-6 relative overflow-hidden">
-                <h3 className="text-xl font-semibold mb-4 transition-all duration-500">{currentModel.title}</h3>
-                <p className="text-gray-300 mb-6 transition-all duration-500">
+                <h3 className="text-xl font-semibold mb-4 transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">{currentModel.title}</h3>
+                <p className="text-gray-300 mb-6 transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
                   {currentModel.description}
                 </p>
                 <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group">
@@ -517,7 +517,7 @@ export default function Home() {
               {/* Gradient Background */}
               <div 
                 key={currentModel.id}
-                className={`h-64 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-700 ease-in-out`}
+                className={`h-64 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20"></div>
                 
@@ -529,7 +529,7 @@ export default function Home() {
                 </div>
                 
                 {/* Interactive Demo Card */}
-                <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg transition-all duration-500">
+                <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg transition-all duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
                   <div className="flex items-center space-x-2 mb-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <span className="text-sm font-medium text-gray-700">{currentModel.title}</span>
@@ -549,7 +549,7 @@ export default function Home() {
                 <button
                   key={model.id}
                   onClick={() => setActiveModel(model.id)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 rounded-full transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
                     activeModel === model.id ? 'bg-gray-700 w-6' : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`View ${model.name}`}
