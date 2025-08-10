@@ -1048,80 +1048,19 @@ export default function Home() {
         </div>
         
         <div className="border-t pt-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Interested in this service?</h3>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-900">Name</FormLabel>
-                    <FormControl>
-                      <Input 
-                        {...field} 
-                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900" 
-                        placeholder="Your name"
-                        data-testid="input-service-name"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-900">Email</FormLabel>
-                    <FormControl>
-                      <Input 
-                        {...field} 
-                        type="email" 
-                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900" 
-                        placeholder="your@email.com"
-                        data-testid="input-service-email"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="brief"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-900">Project Brief (140 chars max)</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        {...field} 
-                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none" 
-                        placeholder="Tell us about your project..."
-                        rows={3}
-                        maxLength={140}
-                        data-testid="textarea-service-brief"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                    <p className="text-sm text-gray-500">{field.value?.length || 0}/140 characters</p>
-                  </FormItem>
-                )}
-              />
-              
-              <Button
-                type="submit"
-                disabled={contactMutation.isPending}
-                className="minimal-button minimal-button-primary w-full"
-                data-testid="button-submit-service-contact"
-              >
-                {contactMutation.isPending ? "Sending..." : "Get Started"}
-              </Button>
-            </form>
-          </Form>
+          <div className="text-center">
+            <p className="text-gray-600 mb-4">Ready to get started with this service?</p>
+            <Button
+              onClick={() => {
+                setServiceDetailModalOpen(false);
+                setIsContactModalOpen(true);
+              }}
+              className="minimal-button minimal-button-primary"
+              data-testid="button-contact-from-service"
+            >
+              Contact Us
+            </Button>
+          </div>
         </div>
       </Modal>
 

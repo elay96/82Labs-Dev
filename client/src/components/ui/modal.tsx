@@ -56,7 +56,7 @@ export function Modal({ isOpen, onClose, children, className }: ModalProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             className={cn(
-              "relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8",
+              "relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md max-h-[70vh] overflow-y-auto p-6 sm:p-8",
               className
             )}
           >
