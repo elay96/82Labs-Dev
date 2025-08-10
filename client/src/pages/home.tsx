@@ -13,6 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Modal } from "@/components/ui/modal";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue 
+} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -32,12 +39,9 @@ export default function Home() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeModel, setActiveModel] = useState("fullstack");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   // Refs for scroll animations
@@ -165,30 +169,9 @@ export default function Home() {
     return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
-  // Handle click outside dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const dropdown = document.querySelector('.dropdown-container');
-      if (dropdown && !dropdown.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen]);
-
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsDropdownOpen(false);
-      }
       if (event.key === 'ArrowLeft') {
         const currentIndex = models.findIndex(m => m.id === activeModel);
         const newIndex = currentIndex > 0 ? currentIndex - 1 : models.length - 1;
@@ -596,54 +579,30 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Model Selector */}
+          {/* Model Selector using Select Component */}
           <div className="mb-8 reveal">
             <div className="flex justify-center">
-              <div ref={dropdownRef} className="relative">
-                <button
-                  ref={dropdownButtonRef}
-                  onClick={() => {
-                    setIsDropdownOpen(!isDropdownOpen);
-                  }}
-                  className="inline-flex items-center px-4 py-2 font-medium text-gray-900 border-b-2 border-orange-200 transition-all duration-300 hover:border-orange-300 focus:outline-none focus:border-orange-400"
-                  aria-haspopup="true"
-                  aria-expanded={isDropdownOpen}
-                >
-                  {currentModel.name}
-                  <ChevronDown className={`w-5 h-5 text-gray-400 ml-2 transition-transform duration-300 ${
-                    isDropdownOpen ? 'rotate-180' : ''
-                  }`} />
-                </button>
-                
-                {/* Dropdown Menu - rendered inline instead of portal */}
-                {isDropdownOpen && (
-                  <div 
-                    className="absolute top-full mt-2 left-0 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200"
-                    style={{
-                      zIndex: 9999
-                    }}
-                  >
-                    {models.map((model) => (
-                      <button
-                        key={model.id}
-                        onClick={() => {
-                          setIsTransitioning(true);
-                          setTimeout(() => {
-                            setActiveModel(model.id);
-                            setIsTransitioning(false);
-                          }, 200);
-                          setIsDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg focus:outline-none focus:bg-gray-50 ${
-                          activeModel === model.id ? 'bg-gray-50 text-gray-900' : 'text-gray-600'
-                        }`}
-                      >
-                        {model.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Select 
+                value={activeModel} 
+                onValueChange={(value) => {
+                  setIsTransitioning(true);
+                  setTimeout(() => {
+                    setActiveModel(value);
+                    setIsTransitioning(false);
+                  }, 200);
+                }}
+              >
+                <SelectTrigger className="w-[200px] border-0 border-b-2 border-orange-200 rounded-none hover:border-orange-300 focus:border-orange-400 focus:ring-0 focus:ring-offset-0">
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent className="z-[99999]">
+                  {models.map((model) => (
+                    <SelectItem key={model.id} value={model.id}>
+                      {model.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             {/* Navigation hint */}
@@ -653,10 +612,13 @@ export default function Home() {
           </div>
 
           {/* Model Card with Touch Support */}
-          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5" style={{ zIndex: 1 }}>
+          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5">
             <div 
-              className="model-card-container"
-              style={{ transition: 'transform 0.3s ease' }}
+              className={`model-card-container relative ${isTransitioning ? 'transitioning' : ''}`}
+              style={{ 
+                transition: 'transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                isolation: 'isolate'
+              }}
               onTouchStart={(e) => {
                 const touch = e.touches[0];
                 e.currentTarget.setAttribute('data-start-x', touch.clientX.toString());
@@ -729,7 +691,7 @@ export default function Home() {
               {/* Gradient Background */}
               <div 
                 key={currentModel.id}
-                className={`h-80 lg:h-96 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]`}
+                className={`h-48 lg:h-64 bg-gradient-to-br ${currentModel.gradient} rounded-b-2xl relative overflow-hidden transition-all duration-1000 ease-out`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-white/20 card-content-transition"></div>
                 

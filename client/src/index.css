@@ -297,6 +297,40 @@
   transform: translateX(-30px);
 }
 
+/* Enhanced card transitions */
+.card-content-transition {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-moving-element {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+  transform: translateX(-100%) skewX(-30deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+.card-moving-element.active {
+  transform: translateX(100%) skewX(-30deg);
+}
+
+@keyframes cardWave {
+  0% {
+    transform: scale(1) rotateX(0deg);
+  }
+  50% {
+    transform: scale(1.02) rotateX(2deg);
+  }
+  100% {
+    transform: scale(1) rotateX(0deg);
+  }
+}
+
+.model-card-container.transitioning {
+  animation: cardWave 0.6s ease-out;
+}
+
 /* Dropdown animations */
 @keyframes fadeInDropdown {
   from {
