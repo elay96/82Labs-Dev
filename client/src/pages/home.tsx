@@ -229,7 +229,31 @@ export default function Home() {
   });
 
   const onSubmit = (data: ContactFormData) => {
-    contactMutation.mutate(data);
+    // For static deployment, use mailto instead of API
+    const subject = encodeURIComponent("Project Inquiry - 82 Labs");
+    const body = encodeURIComponent(`Hi 82 Labs,
+
+My name is ${data.name} and I'd like to discuss a project with you.
+
+Project Brief:
+${data.brief}
+
+Please contact me at your earliest convenience.
+
+Best regards,
+${data.name}`);
+    
+    const mailtoUrl = `mailto:contact@82labs.com?subject=${subject}&body=${body}`;
+    window.location.href = mailtoUrl;
+    
+    toast({
+      title: "Opening email client",
+      description: "Your default email client will open with the message pre-filled.",
+    });
+    
+    form.reset();
+    setIsContactModalOpen(false);
+    setServiceDetailModalOpen(false);
   };
 
   const scrollToSection = (sectionId: string) => {

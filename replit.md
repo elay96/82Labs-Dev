@@ -111,23 +111,31 @@ Preferred communication style: Simple, everyday language.
 
 ## Deployment Strategy
 
-### Build Process
-1. **Frontend Build**: Vite builds React app to `dist/public/`
-2. **Backend Build**: ESBuild bundles server code to `dist/index.js`
-3. **Database**: Drizzle migrations run against PostgreSQL instance
-
-### Environment Requirements
-- Node.js 18+ with ES modules support
-- PostgreSQL database (configured via `DATABASE_URL`)
-- Production environment variables for database connectivity
+### Build Process (Updated: August 10, 2025)
+1. **Static Build**: Vite builds React app to `dist/public/` for static deployment
+2. **Backend**: Converted to static deployment using mailto links for contact form
+3. **Assets**: Favicon and images included in build output
 
 ### Deployment Configuration
-- **Production Server**: Express serves static files from `dist/public/`
-- **Database Migrations**: Run via `npm run db:push` using Drizzle Kit
-- **Process Management**: Single Node.js process handling both static files and API routes
+- **Static Hosting**: Vercel deployment configured with `vercel.json`
+- **Build Command**: `vite build`
+- **Output Directory**: `dist/public`
+- **Contact Form**: Uses mailto links instead of API endpoints
+- **Framework**: None (static site)
 
-### Scalability Considerations
-- In-memory storage is replaced with persistent database for production
-- Static assets can be served via CDN
-- Database connection pooling for high traffic
-- Horizontal scaling possible due to stateless server design
+### Files for Deployment
+- `vercel.json`: Vercel configuration for static deployment
+- `DEPLOYMENT.md`: Deployment instructions and troubleshooting
+- `dist/public/`: Built static files ready for hosting
+
+### Contact Form Behavior
+- Submitting contact form opens user's default email client
+- Pre-fills subject and message body with form data
+- Email address: contact@82labs.com (configurable in code)
+- Works across all static hosting platforms
+
+### Supported Platforms
+- Vercel (primary, configured)
+- Netlify
+- GitHub Pages
+- Any static file hosting service
