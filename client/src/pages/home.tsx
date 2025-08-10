@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ArrowRight
 } from "lucide-react";
-import Simple3D from "@/components/three/Simple3D";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -828,61 +827,6 @@ export default function Home() {
                   <span>React</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Advanced 3D Scene Section */}
-      <section id="three-d-showcase" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" ref={researchRef}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 font-space-mono">
-              Advanced 3D Development
-            </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Cutting-edge 3D experiences with complex geometries, interactive elements, and real-time rendering — 
-              showcasing our expertise in WebGL, Three.js, and immersive web technologies.
-            </p>
-          </div>
-
-          <div className="reveal">
-            <Simple3D />
-          </div>
-
-          {/* Technical Features Grid */}
-          <div className="grid md:grid-cols-3 gap-6 mt-12 reveal">
-            <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl backdrop-blur-sm border border-gray-700">
-              <h3 className="text-xl font-semibold text-white mb-3 font-space-mono">Complex Geometries</h3>
-              <p className="text-gray-300 mb-4">Advanced mathematical models, procedural generation, and custom shader materials for unique visual experiences.</p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Icosahedral subdivisions</li>
-                <li>• Parametric surfaces</li>
-                <li>• Particle systems</li>
-                <li>• Custom geometries</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl backdrop-blur-sm border border-gray-700">
-              <h3 className="text-xl font-semibold text-white mb-3 font-space-mono">Interactive Elements</h3>
-              <p className="text-gray-300 mb-4">Real-time user interaction with 3D objects, hover effects, and dynamic material properties.</p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• Mouse interaction</li>
-                <li>• Hover animations</li>
-                <li>• Dynamic materials</li>
-                <li>• Orbit controls</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gray-800 bg-opacity-50 p-6 rounded-xl backdrop-blur-sm border border-gray-700">
-              <h3 className="text-xl font-semibold text-white mb-3 font-space-mono">Performance Optimization</h3>
-              <p className="text-gray-300 mb-4">Hardware-accelerated rendering, efficient geometry management, and optimized shader compilation.</p>
-              <ul className="text-sm text-gray-400 space-y-1">
-                <li>• WebGL optimization</li>
-                <li>• LOD management</li>
-                <li>• Frustum culling</li>
-                <li>• Memory efficiency</li>
-              </ul>
             </div>
           </div>
         </div>
