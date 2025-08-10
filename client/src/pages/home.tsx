@@ -4,8 +4,7 @@ import {
   Menu,
   X,
   ChevronRight,
-  ChevronDown,
-  ArrowRight
+  ChevronDown
 } from "lucide-react";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
 import { Button } from "@/components/ui/button";
@@ -706,7 +705,7 @@ export default function Home() {
                   className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg minimal-button"
                 >
                   Learn more 
-                  <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
               
@@ -864,7 +863,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 font-space-mono">
             Ready to transform your business with intelligent automation and expert development?
           </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex justify-center">
             <Button
               onClick={() => setIsContactModalOpen(true)}
               className="minimal-button minimal-button-primary"
@@ -872,10 +871,6 @@ export default function Home() {
             >
               Get Started Today
             </Button>
-            <button className="flex items-center text-gray-900 hover:text-gray-600 transition-all duration-300 font-medium group">
-              View Our Work 
-              <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </button>
           </div>
         </div>
       </section>
