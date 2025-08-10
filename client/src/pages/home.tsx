@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { 
   Menu,
   X,
@@ -35,6 +36,8 @@ export default function Home() {
   const [navBackground, setNavBackground] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -443,7 +446,21 @@ export default function Home() {
             <div className="flex justify-center">
               <div ref={dropdownRef} className="relative dropdown-container" style={{zIndex: 999999, position: 'relative'}}>
                 <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  ref={dropdownButtonRef}
+                  onClick={() => {
+                    if (!isDropdownOpen) {
+                      // Calculate position when opening
+                      const rect = dropdownButtonRef.current?.getBoundingClientRect();
+                      if (rect) {
+                        setDropdownPosition({
+                          top: rect.bottom + window.scrollY + 8,
+                          left: rect.left + window.scrollX,
+                          width: rect.width
+                        });
+                      }
+                    }
+                    setIsDropdownOpen(!isDropdownOpen);
+                  }}
                   className="inline-flex items-center px-4 py-2 font-medium text-gray-900 border-b-2 border-orange-200 transition-all duration-300 hover:border-orange-300 focus:outline-none focus:border-orange-400"
                   aria-haspopup="true"
                   aria-expanded={isDropdownOpen}
@@ -454,29 +471,7 @@ export default function Home() {
                   }`} />
                 </button>
                 
-                {/* Dropdown Menu */}
-                {isDropdownOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200 dropdown-menu" style={{zIndex: 999999}}>
-                    {models.map((model) => (
-                      <button
-                        key={model.id}
-                        onClick={() => {
-                          setIsTransitioning(true);
-                          setTimeout(() => {
-                            setActiveModel(model.id);
-                            setIsTransitioning(false);
-                          }, 200);
-                          setIsDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg focus:outline-none focus:bg-gray-50 ${
-                          activeModel === model.id ? 'bg-gray-50 text-gray-900' : 'text-gray-600'
-                        }`}
-                      >
-                        {model.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
+
               </div>
             </div>
             
@@ -913,6 +908,39 @@ export default function Home() {
           </form>
         </Form>
       </Modal>
+
+      {/* Portal-based Dropdown Menu */}
+      {isDropdownOpen && createPortal(
+        <div 
+          className="fixed bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200"
+          style={{
+            top: dropdownPosition.top,
+            left: dropdownPosition.left,
+            width: Math.max(dropdownPosition.width, 200),
+            zIndex: 999999
+          }}
+        >
+          {models.map((model) => (
+            <button
+              key={model.id}
+              onClick={() => {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                  setActiveModel(model.id);
+                  setIsTransitioning(false);
+                }, 200);
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg focus:outline-none focus:bg-gray-50 ${
+                activeModel === model.id ? 'bg-gray-50 text-gray-900' : 'text-gray-600'
+              }`}
+            >
+              {model.name}
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
