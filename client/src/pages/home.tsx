@@ -280,35 +280,28 @@ export default function Home() {
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-platform"
               >
-                Platform
+                Services
               </button>
               <button 
                 onClick={() => scrollToSection("solutions")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-solutions"
               >
-                Solutions
+                Why 82 Labs
               </button>
               <button 
                 onClick={() => scrollToSection("research")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-research"
               >
-                Research
-              </button>
-              <button 
-                onClick={() => scrollToSection("resources")} 
-                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
-                data-testid="link-resources"
-              >
-                Resources
+                Industries
               </button>
               <button 
                 onClick={() => scrollToSection("company")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-company"
               >
-                Company
+                Get Started
               </button>
             </div>
             
@@ -341,7 +334,7 @@ export default function Home() {
                   className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
                   data-testid="mobile-link-platform"
                 >
-                  Platform
+                  Services
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
                 <button 
@@ -349,7 +342,7 @@ export default function Home() {
                   className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
                   data-testid="mobile-link-solutions"
                 >
-                  Solutions
+                  Why 82 Labs
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
                 <button 
@@ -357,15 +350,7 @@ export default function Home() {
                   className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
                   data-testid="mobile-link-research"
                 >
-                  Research
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
-                </button>
-                <button 
-                  onClick={() => scrollToSection("resources")} 
-                  className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
-                  data-testid="mobile-link-resources"
-                >
-                  Resources
+                  Industries
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
                 <button 
@@ -373,7 +358,7 @@ export default function Home() {
                   className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
                   data-testid="mobile-link-company"
                 >
-                  Company
+                  Get Started
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
                 <Button
@@ -600,7 +585,7 @@ export default function Home() {
       </div>
 
       {/* Models Section */}
-      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 relative" ref={platformRef} style={{zIndex: 1}}>
+      <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 relative" ref={platformRef}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 reveal">
             <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 font-space-mono">
@@ -635,7 +620,7 @@ export default function Home() {
                   <div 
                     className="absolute top-full mt-2 left-0 bg-white border border-gray-200 rounded-lg shadow-xl min-w-[200px] animate-in fade-in slide-in-from-top-2 duration-200"
                     style={{
-                      zIndex: 50
+                      zIndex: 9999
                     }}
                   >
                     {models.map((model) => (
@@ -668,7 +653,7 @@ export default function Home() {
           </div>
 
           {/* Model Card with Touch Support */}
-          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5">
+          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5" style={{ zIndex: 1 }}>
             <div 
               className="model-card-container"
               style={{ transition: 'transform 0.3s ease' }}
@@ -695,10 +680,14 @@ export default function Home() {
                       }, 200);
                     } else {
                       // Bounce effect at the end
-                      e.currentTarget.style.transform = 'translateX(-10px)';
-                      setTimeout(() => {
-                        e.currentTarget.style.transform = 'translateX(0)';
-                      }, 200);
+                      if (e.currentTarget && e.currentTarget.style) {
+                        e.currentTarget.style.transform = 'translateX(-10px)';
+                        setTimeout(() => {
+                          if (e.currentTarget && e.currentTarget.style) {
+                            e.currentTarget.style.transform = 'translateX(0)';
+                          }
+                        }, 200);
+                      }
                     }
                   } else if (diff < 0) {
                     // Swipe right - previous (only if not at first slide)
@@ -710,10 +699,14 @@ export default function Home() {
                       }, 200);
                     } else {
                       // Bounce effect at the beginning
-                      e.currentTarget.style.transform = 'translateX(10px)';
-                      setTimeout(() => {
-                        e.currentTarget.style.transform = 'translateX(0)';
-                      }, 200);
+                      if (e.currentTarget && e.currentTarget.style) {
+                        e.currentTarget.style.transform = 'translateX(10px)';
+                        setTimeout(() => {
+                          if (e.currentTarget && e.currentTarget.style) {
+                            e.currentTarget.style.transform = 'translateX(0)';
+                          }
+                        }, 200);
+                      }
                     }
                   }
                 }
@@ -858,9 +851,9 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Technology */}
+            {/* Fintech & SaaS */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
+                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Fintech & SaaS</h3>
@@ -868,9 +861,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Finance */}
+            {/* Healthcare & AI */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
+                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Healthcare & AI</h3>
