@@ -42,6 +42,8 @@ export default function Home() {
   const [navBackground, setNavBackground] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [serviceDetailModalOpen, setServiceDetailModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("");
   const { toast } = useToast();
 
   // Refs for scroll animations
@@ -216,6 +218,7 @@ export default function Home() {
       });
       form.reset();
       setIsContactModalOpen(false);
+      setServiceDetailModalOpen(false);
     },
     onError: () => {
       toast({
@@ -620,61 +623,74 @@ export default function Home() {
                 isolation: 'isolate'
               }}
               onTouchStart={(e) => {
+                // Only handle horizontal swipes on the card area, not on scrollable content
                 const touch = e.touches[0];
+                const target = e.target as HTMLElement;
+                
+                // Don't interfere with scrolling if touch is on scrollable content
+                if (target.closest('.scrollable-content')) {
+                  return;
+                }
+                
                 e.currentTarget.setAttribute('data-start-x', touch.clientX.toString());
+                e.currentTarget.setAttribute('data-start-y', touch.clientY.toString());
+              }}
+              onTouchMove={(e) => {
+                const target = e.target as HTMLElement;
+                if (target.closest('.scrollable-content')) {
+                  return;
+                }
+                
+                const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
+                const startY = parseFloat(e.currentTarget.getAttribute('data-start-y') || '0');
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                
+                const diffX = Math.abs(startX - currentX);
+                const diffY = Math.abs(startY - currentY);
+                
+                // If horizontal movement is dominant, prevent default to avoid scrolling
+                if (diffX > diffY && diffX > 10) {
+                  e.preventDefault();
+                }
               }}
               onTouchEnd={(e) => {
-                const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
-                const endX = e.changedTouches[0].clientX;
-                const diff = startX - endX;
+                const target = e.target as HTMLElement;
+                if (target.closest('.scrollable-content')) {
+                  return;
+                }
                 
-                if (Math.abs(diff) > 50) { // Threshold for swipe
+                const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
+                const startY = parseFloat(e.currentTarget.getAttribute('data-start-y') || '0');
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                
+                const diffX = startX - endX;
+                const diffY = Math.abs(startY - endY);
+                
+                // Only process horizontal swipes with minimal vertical movement
+                if (Math.abs(diffX) > 50 && diffY < 30) {
                   const currentIndex = models.findIndex(m => m.id === activeModel);
                   
-                  // Add boundary checks to prevent out of bounds swipes
-                  if (diff > 0) {
-                    // Swipe left - next (only if not at last slide)
-                    if (currentIndex < models.length - 1) {
-                      setIsTransitioning(true);
-                      setTimeout(() => {
-                        setActiveModel(models[currentIndex + 1].id);
-                        setIsTransitioning(false);
-                      }, 200);
-                    } else {
-                      // Bounce effect at the end
-                      if (e.currentTarget && e.currentTarget.style) {
-                        e.currentTarget.style.transform = 'translateX(-10px)';
-                        setTimeout(() => {
-                          if (e.currentTarget && e.currentTarget.style) {
-                            e.currentTarget.style.transform = 'translateX(0)';
-                          }
-                        }, 200);
-                      }
-                    }
-                  } else if (diff < 0) {
-                    // Swipe right - previous (only if not at first slide)
-                    if (currentIndex > 0) {
-                      setIsTransitioning(true);
-                      setTimeout(() => {
-                        setActiveModel(models[currentIndex - 1].id);
-                        setIsTransitioning(false);
-                      }, 200);
-                    } else {
-                      // Bounce effect at the beginning
-                      if (e.currentTarget && e.currentTarget.style) {
-                        e.currentTarget.style.transform = 'translateX(10px)';
-                        setTimeout(() => {
-                          if (e.currentTarget && e.currentTarget.style) {
-                            e.currentTarget.style.transform = 'translateX(0)';
-                          }
-                        }, 200);
-                      }
-                    }
+                  if (diffX > 0 && currentIndex < models.length - 1) {
+                    // Swipe left - next
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setActiveModel(models[currentIndex + 1].id);
+                      setIsTransitioning(false);
+                    }, 200);
+                  } else if (diffX < 0 && currentIndex > 0) {
+                    // Swipe right - previous
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setActiveModel(models[currentIndex - 1].id);
+                      setIsTransitioning(false);
+                    }, 200);
                   }
                 }
               }}
             >
-              <div className="bg-gray-900 text-white rounded-t-2xl p-8 lg:p-12 relative overflow-hidden">
+              <div className="bg-gray-900 text-white rounded-t-2xl p-8 lg:p-12 relative overflow-hidden scrollable-content">
                 {/* Moving transition element */}
                 <div className={`card-moving-element ${isTransitioning ? 'active' : ''}`}></div>
                 
@@ -682,7 +698,13 @@ export default function Home() {
                 <p className="text-gray-300 mb-8 text-lg lg:text-xl leading-relaxed card-content-transition">
                   {currentModel.description}
                 </p>
-                <button className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg minimal-button">
+                <button 
+                  onClick={() => {
+                    setSelectedService(currentModel.id);
+                    setServiceDetailModalOpen(true);
+                  }}
+                  className="flex items-center text-white hover:text-gray-300 transition-all duration-300 group text-lg minimal-button"
+                >
                   Learn more 
                   <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
                 </button>
@@ -940,6 +962,168 @@ export default function Home() {
         </Form>
       </Modal>
 
+      {/* Service Detail Modal */}
+      <Modal isOpen={serviceDetailModalOpen} onClose={() => setServiceDetailModalOpen(false)}>
+        <div className="mb-6">
+          {selectedService === 'fullstack' && (
+            <>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Fullstack Development</h2>
+              <div className="space-y-4 text-gray-600">
+                <p>
+                  End-to-end web and mobile applications using cutting-edge technologies. 
+                  We specialize in React, Node.js, Python, and modern cloud infrastructure.
+                </p>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">What's Included:</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Frontend development with React/Next.js</li>
+                    <li>Backend API development with Node.js/Python</li>
+                    <li>Database design and implementation</li>
+                    <li>Cloud infrastructure and deployment</li>
+                    <li>Mobile app development (React Native)</li>
+                    <li>Testing and quality assurance</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Perfect for:</h3>
+                  <p>Startups, SaaS products, enterprise applications, and complex web platforms requiring scalable, maintainable code.</p>
+                </div>
+              </div>
+            </>
+          )}
+          
+          {selectedService === 'automation' && (
+            <>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Intelligent Automation</h2>
+              <div className="space-y-4 text-gray-600">
+                <p>
+                  Complex workflow automation using n8n and LangGraph. AI-powered processes 
+                  that integrate with your existing tools and systems.
+                </p>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">What's Included:</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Custom n8n workflow development</li>
+                    <li>AI integration with LangGraph</li>
+                    <li>API integrations and data synchronization</li>
+                    <li>Process optimization and monitoring</li>
+                    <li>Custom automation solutions</li>
+                    <li>Ongoing support and maintenance</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Perfect for:</h3>
+                  <p>Businesses looking to streamline operations, reduce manual work, and implement intelligent decision-making processes.</p>
+                </div>
+              </div>
+            </>
+          )}
+          
+          {selectedService === 'lectures' && (
+            <>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">n8n Training & Consulting</h2>
+              <div className="space-y-4 text-gray-600">
+                <p>
+                  Official n8n lecturing and training programs. We don't just build solutions — 
+                  we empower your team with the knowledge to maintain and extend them.
+                </p>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">What's Included:</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Official n8n certification training</li>
+                    <li>Hands-on workshops and tutorials</li>
+                    <li>Custom training programs for teams</li>
+                    <li>Best practices consultation</li>
+                    <li>Architecture reviews and optimization</li>
+                    <li>Ongoing mentorship and support</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Perfect for:</h3>
+                  <p>Teams wanting to master automation, companies implementing n8n, and organizations seeking to build internal automation expertise.</p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Interested in this service?</h3>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-900">Name</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field} 
+                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900" 
+                        placeholder="Your name"
+                        data-testid="input-service-name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-900">Email</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field} 
+                        type="email" 
+                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900" 
+                        placeholder="your@email.com"
+                        data-testid="input-service-email"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="brief"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-900">Project Brief (140 chars max)</FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        {...field} 
+                        className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none" 
+                        placeholder="Tell us about your project..."
+                        rows={3}
+                        maxLength={140}
+                        data-testid="textarea-service-brief"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                    <p className="text-sm text-gray-500">{field.value?.length || 0}/140 characters</p>
+                  </FormItem>
+                )}
+              />
+              
+              <Button
+                type="submit"
+                disabled={contactMutation.isPending}
+                className="minimal-button minimal-button-primary w-full"
+                data-testid="button-submit-service-contact"
+              >
+                {contactMutation.isPending ? "Sending..." : "Get Started"}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </Modal>
 
     </div>
   );

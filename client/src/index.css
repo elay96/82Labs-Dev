@@ -331,6 +331,17 @@
   animation: cardWave 0.6s ease-out;
 }
 
+/* Scrollable content for mobile */
+.scrollable-content {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure body scroll is preserved */
+.touch-pan-x {
+  touch-action: pan-y pinch-zoom;
+}
+
 /* Dropdown animations */
 @keyframes fadeInDropdown {
   from {
