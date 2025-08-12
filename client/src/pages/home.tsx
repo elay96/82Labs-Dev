@@ -456,16 +456,20 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 rounded text-white text-xs font-bold">
-                🦜
-              </div>
+              <img 
+                src="https://logo.svgcdn.com/s/langchain-dark.png" 
+                alt="LangChain" 
+                className="w-8 h-8"
+              />
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded text-white text-xs font-bold">
-                🕸️
-              </div>
+              <img 
+                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
+                alt="LangGraph" 
+                className="w-8 h-8"
+              />
               <span>LangGraph</span>
             </div>
             
@@ -519,9 +523,11 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-orange-400 to-red-500 rounded text-white text-xs font-bold">
-                🌲
-              </div>
+              <img 
+                src="https://images.seeklogo.com/logo-png/48/2/pinecone-icon-logo-png_seeklogo-482365.png" 
+                alt="Pinecone" 
+                className="w-8 h-8"
+              />
               <span>Pinecone</span>
             </div>
             
@@ -568,16 +574,20 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 rounded text-white text-xs font-bold">
-                🦜
-              </div>
+              <img 
+                src="https://logo.svgcdn.com/s/langchain-dark.png" 
+                alt="LangChain" 
+                className="w-8 h-8"
+              />
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded text-white text-xs font-bold">
-                🕸️
-              </div>
+              <img 
+                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
+                alt="LangGraph" 
+                className="w-8 h-8"
+              />
               <span>LangGraph</span>
             </div>
             
