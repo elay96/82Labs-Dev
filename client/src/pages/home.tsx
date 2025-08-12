@@ -6,6 +6,16 @@ import {
   ChevronRight,
   ChevronDown
 } from "lucide-react";
+import { 
+  SiRedis,
+  SiTypescript,
+  SiReact,
+  SiPython,
+  SiNodedotjs,
+  SiPostgresql,
+  SiDocker,
+  SiVercel
+} from "react-icons/si";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -406,21 +416,17 @@ export default function Home() {
           <div className="tech-track">
             {/* Core Technologies and Platforms */}
             <div className="tech-item">
-              <img 
-                src="https://docs.n8n.io/favicon.ico" 
-                alt="n8n" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm font-bold text-gray-800">
+                n8n
+              </div>
               <span>n8n</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/openai.png" 
-                alt="OpenAI ChatGPT" 
-                className="w-8 h-8"
-              />
-              <span>OpenAI ChatGPT</span>
+              <div className="w-8 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
+                GPT
+              </div>
+              <span>ChatGPT</span>
             </div>
             
             <div className="tech-item">
@@ -433,65 +439,43 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://python.langchain.com/img/favicon.ico" 
-                alt="LangChain" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded text-white text-xs font-bold">
+                LC
+              </div>
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://langchain-ai.github.io/langgraph/img/favicon.ico" 
-                alt="LangGraph" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-purple-600 rounded text-white text-xs font-bold">
+                LG
+              </div>
               <span>LangGraph</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://react.dev/favicon.ico" 
-                alt="React" 
-                className="w-8 h-8"
-              />
+              <SiReact className="w-8 h-8 text-blue-500" />
               <span>React</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.python.org/static/favicon.ico" 
-                alt="Python" 
-                className="w-8 h-8"
-              />
+              <SiPython className="w-8 h-8 text-blue-600" />
               <span>Python</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://nodejs.org/static/images/favicons/favicon.ico" 
-                alt="Node.js" 
-                className="w-8 h-8"
-              />
+              <SiNodedotjs className="w-8 h-8 text-green-600" />
               <span>Node.js</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.typescriptlang.org/favicon-32x32.png" 
-                alt="TypeScript" 
-                className="w-8 h-8"
-              />
+              <SiTypescript className="w-8 h-8 text-blue-700" />
               <span>TypeScript</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://fastapi.tiangolo.com/img/favicon.png" 
-                alt="FastAPI" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-teal-600 rounded text-white text-xs font-bold">
+                API
+              </div>
               <span>FastAPI</span>
             </div>
             
@@ -505,76 +489,52 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.docker.com/wp-content/uploads/2023/04/cropped-Docker-favicon-32x32.png" 
-                alt="Docker" 
-                className="w-8 h-8"
-              />
+              <SiDocker className="w-8 h-8 text-blue-500" />
               <span>Docker</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.postgresql.org/favicon.ico" 
-                alt="PostgreSQL" 
-                className="w-8 h-8"
-              />
+              <SiPostgresql className="w-8 h-8 text-blue-600" />
               <span>PostgreSQL</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://redis.io/wp-content/uploads/2024/04/cropped-redis-favicon-32x32.png" 
-                alt="Redis" 
-                className="w-8 h-8"
-              />
+              <SiRedis className="w-8 h-8 text-red-600" />
               <span>Redis</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.pinecone.io/favicon.ico" 
-                alt="Pinecone" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-orange-500 rounded text-white text-xs font-bold">
+                PC
+              </div>
               <span>Pinecone</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://qdrant.tech/favicon.ico" 
-                alt="Qdrant" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-red-600 rounded text-white text-xs font-bold">
+                QD
+              </div>
               <span>Qdrant</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://vercel.com/favicon.ico" 
-                alt="Vercel" 
-                className="w-8 h-8"
-              />
+              <SiVercel className="w-8 h-8 text-black" />
               <span>Vercel</span>
             </div>
             
             {/* Duplicate for continuous scroll */}
             <div className="tech-item">
-              <img 
-                src="https://docs.n8n.io/favicon.ico" 
-                alt="n8n" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm font-bold text-gray-800">
+                n8n
+              </div>
               <span>n8n</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/openai.png" 
-                alt="OpenAI ChatGPT" 
-                className="w-8 h-8"
-              />
-              <span>OpenAI ChatGPT</span>
+              <div className="w-8 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
+                GPT
+              </div>
+              <span>ChatGPT</span>
             </div>
             
             <div className="tech-item">
@@ -587,29 +547,21 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://python.langchain.com/img/favicon.ico" 
-                alt="LangChain" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded text-white text-xs font-bold">
+                LC
+              </div>
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://langchain-ai.github.io/langgraph/img/favicon.ico" 
-                alt="LangGraph" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-purple-600 rounded text-white text-xs font-bold">
+                LG
+              </div>
               <span>LangGraph</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://react.dev/favicon.ico" 
-                alt="React" 
-                className="w-8 h-8"
-              />
+              <SiReact className="w-8 h-8 text-blue-500" />
               <span>React</span>
             </div>
           </div>
