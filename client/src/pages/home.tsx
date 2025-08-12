@@ -456,20 +456,16 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" 
-                alt="LangChain" 
-                className="w-8 h-8 rounded"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 rounded text-white text-xs font-bold">
+                🦜
+              </div>
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://python.langchain.com/img/brand/wordmark.png" 
-                alt="LangGraph" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded text-white text-xs font-bold">
+                🕸️
+              </div>
               <span>LangGraph</span>
             </div>
             
@@ -523,11 +519,9 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://www.pinecone.io/favicon-32x32.png" 
-                alt="Pinecone" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-orange-400 to-red-500 rounded text-white text-xs font-bold">
+                🌲
+              </div>
               <span>Pinecone</span>
             </div>
             
@@ -574,20 +568,16 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" 
-                alt="LangChain" 
-                className="w-8 h-8 rounded"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 rounded text-white text-xs font-bold">
+                🦜
+              </div>
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <img 
-                src="https://python.langchain.com/img/brand/wordmark.png" 
-                alt="LangGraph" 
-                className="w-8 h-8"
-              />
+              <div className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 rounded text-white text-xs font-bold">
+                🕸️
+              </div>
               <span>LangGraph</span>
             </div>
             
