@@ -39,6 +39,8 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
+import Logo from "@assets/Logo.png";
+
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
@@ -295,7 +297,7 @@ export default function Home() {
             {/* Logo */}
             <div className="flex items-center">
               <img 
-                src={logoImg} 
+                src={Logo} 
                 alt="82 Labs" 
                 className="h-8 transition-transform hover:scale-105 duration-300 cursor-pointer"
                 data-testid="logo-82labs"
@@ -1098,7 +1100,6 @@ export default function Home() {
           </div>
         </div>
       </Modal>
-      
       <SpeedInsights />
     </div>
   );
