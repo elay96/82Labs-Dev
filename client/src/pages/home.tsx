@@ -883,28 +883,48 @@ export default function Home() {
               Industries We Serve
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              From fintech to healthcare, we deliver specialized solutions across complex industries.
+              From fintech to manufacturing, we deliver specialized solutions across complex industries.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Fintech & SaaS */}
+            {/* Fintech */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
+                 style={{backgroundImage: "url('@assets/Finance_1755018204858.png')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
-                <h3 className="text-2xl font-semibold mb-2">Fintech & SaaS</h3>
-                <p className="text-sm opacity-90">Complex financial applications and enterprise software</p>
+                <h3 className="text-2xl font-semibold mb-2">Fintech</h3>
+                <p className="text-sm opacity-90">Complex financial applications and payment systems</p>
               </div>
             </div>
 
-            {/* Healthcare & AI */}
+            {/* Manufacturing */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400')"}}>
+                 style={{backgroundImage: "url('@assets/Manufacturing_1755018201891.png')"}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
-                <h3 className="text-2xl font-semibold mb-2">Healthcare & AI</h3>
-                <p className="text-sm opacity-90">Intelligent automation and data processing solutions</p>
+                <h3 className="text-2xl font-semibold mb-2">Manufacturing</h3>
+                <p className="text-sm opacity-90">Process automation and industrial IoT solutions</p>
+              </div>
+            </div>
+
+            {/* SaaS */}
+            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
+                 style={{backgroundImage: "url('@assets/SaaS_1755018201889.png')"}}>
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
+              <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
+                <h3 className="text-2xl font-semibold mb-2">SaaS</h3>
+                <p className="text-sm opacity-90">Scalable software platforms and enterprise tools</p>
+              </div>
+            </div>
+
+            {/* Digital Health */}
+            <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
+                 style={{backgroundImage: "url('@assets/Digital Health_1755018201890.png')"}}>
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
+              <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
+                <h3 className="text-2xl font-semibold mb-2">Digital Health</h3>
+                <p className="text-sm opacity-90">Healthcare technology and patient data solutions</p>
               </div>
             </div>
           </div>
