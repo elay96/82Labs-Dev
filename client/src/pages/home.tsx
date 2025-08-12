@@ -287,7 +287,7 @@ export default function Home() {
             </div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center justify-center space-x-8 flex-1">
               <button 
                 onClick={() => scrollToSection("platform")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
@@ -299,22 +299,13 @@ export default function Home() {
                 onClick={() => scrollToSection("solutions")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-solutions"
-              >
-                Why 82 Labs
-              </button>
+              >Why 82Labs</button>
               <button 
                 onClick={() => scrollToSection("research")} 
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
                 data-testid="link-research"
               >
                 Industries
-              </button>
-              <button 
-                onClick={() => scrollToSection("company")} 
-                className="text-gray-600 hover:text-gray-900 transition-all duration-300 font-medium hover:scale-105"
-                data-testid="link-company"
-              >
-                Get Started
               </button>
             </div>
             
@@ -366,14 +357,6 @@ export default function Home() {
                   Industries
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
-                <button 
-                  onClick={() => scrollToSection("company")} 
-                  className="flex items-center justify-between w-full py-2 text-gray-900 hover:text-gray-600 transition-colors"
-                  data-testid="mobile-link-company"
-                >
-                  Get Started
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
-                </button>
                 <Button
                   onClick={() => setIsContactModalOpen(true)}
                   className="minimal-button minimal-button-primary w-full mt-4"
@@ -386,13 +369,11 @@ export default function Home() {
           )}
         </nav>
       </header>
-
       {/* Scroll Progress Indicator */}
       <div 
         className="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 z-50 transition-all duration-300"
         style={{ width: `${scrollProgress * 100}%` }}
       />
-
       {/* Hero Section */}
       <section id="hero" className="pt-24 pb-16 px-4 sm:px-6 lg:px-8" ref={heroRef}>
         <div className="max-w-4xl mx-auto text-center">
@@ -419,7 +400,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Technology Sliding Bar - Moved to under hero section */}
       <div className="overflow-hidden">
         <div className="tech-slider">
@@ -590,7 +570,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* Models Section */}
       <section id="platform" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 relative" ref={platformRef}>
         <div className="max-w-6xl mx-auto">
@@ -806,7 +785,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8" ref={solutionsRef}>
         <div className="max-w-6xl mx-auto">
@@ -869,7 +847,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Industries Section */}
       <section id="research" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={researchRef}>
         <div className="max-w-6xl mx-auto">
@@ -905,7 +882,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Company Section */}
       <section id="company" className="py-16 px-4 sm:px-6 lg:px-8" ref={companyRef}>
         <div className="max-w-4xl mx-auto text-center reveal">
@@ -914,7 +890,6 @@ export default function Home() {
           </h2>
         </div>
       </section>
-
       {/* Contact Modal */}
       <Modal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)}>
         <div className="mb-6">
@@ -996,7 +971,6 @@ export default function Home() {
           </form>
         </Form>
       </Modal>
-
       {/* Service Detail Modal */}
       <Modal isOpen={serviceDetailModalOpen} onClose={() => setServiceDetailModalOpen(false)}>
         <div className="mb-6">
@@ -1098,7 +1072,6 @@ export default function Home() {
           </div>
         </div>
       </Modal>
-
     </div>
   );
 }
