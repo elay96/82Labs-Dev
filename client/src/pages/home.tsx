@@ -19,6 +19,10 @@ import {
   SiFastapi
 } from "react-icons/si";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
+import fintechImg from "@assets/Finance_1755018204858.png";
+import manufacturingImg from "@assets/Manufacturing_1755018201891.png";
+import saasImg from "@assets/SaaS_1755018201889.png";
+import digitalHealthImg from "@assets/Digital Health_1755018201890.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -890,7 +894,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Fintech */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('@assets/Finance_1755018204858.png')"}}>
+                 style={{backgroundImage: `url(${fintechImg})`}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Fintech</h3>
@@ -900,7 +904,7 @@ export default function Home() {
 
             {/* Manufacturing */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('@assets/Manufacturing_1755018201891.png')"}}>
+                 style={{backgroundImage: `url(${manufacturingImg})`}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Manufacturing</h3>
@@ -910,7 +914,7 @@ export default function Home() {
 
             {/* SaaS */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('@assets/SaaS_1755018201889.png')"}}>
+                 style={{backgroundImage: `url(${saasImg})`}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">SaaS</h3>
@@ -920,7 +924,7 @@ export default function Home() {
 
             {/* Digital Health */}
             <div className="minimal-card bg-cover bg-center h-64 relative overflow-hidden group stagger-item" 
-                 style={{backgroundImage: "url('@assets/Digital Health_1755018201890.png')"}}>
+                 style={{backgroundImage: `url(${digitalHealthImg})`}}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
               <div className="absolute bottom-6 left-6 text-white transform group-hover:translate-y-1 transition-transform duration-300">
                 <h3 className="text-2xl font-semibold mb-2">Digital Health</h3>
