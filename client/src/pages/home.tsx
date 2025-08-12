@@ -140,14 +140,28 @@ export default function Home() {
           const rect = ref.current.getBoundingClientRect();
           const speed = 0.5 + (index * 0.1); // Different speeds for each section
           const yPos = -(scrollY * speed);
-          const opacity = Math.max(0, Math.min(1, 1 - Math.abs(rect.top) / window.innerHeight));
+          
+          // Calculate opacity differently for footer (last section)
+          let opacity = 1;
+          if (window.innerWidth > 768) {
+            if (index === sections.length - 1) {
+              // For the footer/company section, ensure it stays visible when scrolled to bottom
+              const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+              const scrollProgress = scrollY / documentHeight;
+              opacity = Math.max(0.8, Math.min(1, 1.5 - scrollProgress));
+            } else {
+              opacity = Math.max(0, Math.min(1, 1 - Math.abs(rect.top) / window.innerHeight));
+            }
+          }
           
           // Apply subtle parallax effects only on desktop
           if (window.innerWidth > 768) {
             ref.current.style.transform = `translateY(${yPos * 0.05}px)`;
+            ref.current.style.opacity = opacity.toString();
+          } else {
+            // Keep opacity normal for mobile
+            ref.current.style.opacity = '1';
           }
-          // Keep opacity normal for mobile
-          ref.current.style.opacity = window.innerWidth > 768 ? opacity.toString() : '1';
         }
       });
     };
@@ -229,37 +243,20 @@ export default function Home() {
   });
 
   const onSubmit = (data: ContactFormData) => {
-    // For static deployment, use mailto instead of API
-    const subject = encodeURIComponent("Project Inquiry - 82 Labs");
-    const body = encodeURIComponent(`Hi 82 Labs,
-
-My name is ${data.name} and I'd like to discuss a project with you.
-
-Project Brief:
-${data.brief}
-
-Please contact me at your earliest convenience.
-
-Best regards,
-${data.name}`);
-    
-    const mailtoUrl = `mailto:contact@82labs.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoUrl;
-    
-    toast({
-      title: "Opening email client",
-      description: "Your default email client will open with the message pre-filled.",
-    });
-    
-    form.reset();
-    setIsContactModalOpen(false);
-    setServiceDetailModalOpen(false);
+    contactMutation.mutate(data);
   };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80; // Account for fixed header height
+      const elementPosition = element.offsetTop;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
     setIsMobileMenuOpen(false);
   };
@@ -599,9 +596,36 @@ ${data.name}`);
             </p>
           </div>
 
-          {/* Model Selector using Select Component */}
+          {/* Model Selector - Tabs on Desktop, Dropdown on Mobile */}
           <div className="mb-8 reveal">
-            <div className="flex justify-center">
+            {/* Desktop Tabs */}
+            <div className="hidden md:flex justify-center mb-4">
+              <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+                {models.map((model) => (
+                  <button
+                    key={model.id}
+                    onClick={() => {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setActiveModel(model.id);
+                        setIsTransitioning(false);
+                      }, 200);
+                    }}
+                    className={`px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 ${
+                      activeModel === model.id
+                        ? 'bg-white text-gray-900 shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                    data-testid={`tab-${model.id}`}
+                  >
+                    {model.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Dropdown */}
+            <div className="md:hidden flex justify-center">
               <Select 
                 value={activeModel} 
                 onValueChange={(value) => {
