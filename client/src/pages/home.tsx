@@ -14,7 +14,9 @@ import {
   SiNodedotjs,
   SiPostgresql,
   SiDocker,
-  SiVercel
+  SiVercel,
+  SiChatbot,
+  SiFastapi
 } from "react-icons/si";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
 import { Button } from "@/components/ui/button";
@@ -427,16 +429,20 @@ export default function Home() {
           <div className="tech-track">
             {/* Core Technologies and Platforms */}
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm font-bold text-gray-800">
-                n8n
-              </div>
+              <img 
+                src="https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.svg" 
+                alt="n8n" 
+                className="w-8 h-8"
+              />
               <span>n8n</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
-                GPT
-              </div>
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" 
+                alt="ChatGPT" 
+                className="w-8 h-8"
+              />
               <span>ChatGPT</span>
             </div>
             
@@ -450,16 +456,20 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded text-white text-xs font-bold">
-                LC
-              </div>
+              <img 
+                src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" 
+                alt="LangChain" 
+                className="w-8 h-8 rounded"
+              />
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-purple-600 rounded text-white text-xs font-bold">
-                LG
-              </div>
+              <img 
+                src="https://python.langchain.com/img/brand/wordmark.png" 
+                alt="LangGraph" 
+                className="w-8 h-8"
+              />
               <span>LangGraph</span>
             </div>
             
@@ -484,9 +494,7 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-teal-600 rounded text-white text-xs font-bold">
-                API
-              </div>
+              <SiFastapi className="w-8 h-8 text-teal-600" />
               <span>FastAPI</span>
             </div>
             
@@ -515,16 +523,20 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-orange-500 rounded text-white text-xs font-bold">
-                PC
-              </div>
+              <img 
+                src="https://www.pinecone.io/favicon-32x32.png" 
+                alt="Pinecone" 
+                className="w-8 h-8"
+              />
               <span>Pinecone</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-red-600 rounded text-white text-xs font-bold">
-                QD
-              </div>
+              <img 
+                src="https://qdrant.tech/images/logo_with_text.svg" 
+                alt="Qdrant" 
+                className="w-8 h-8"
+              />
               <span>Qdrant</span>
             </div>
             
@@ -535,16 +547,20 @@ export default function Home() {
             
             {/* Duplicate for continuous scroll */}
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm font-bold text-gray-800">
-                n8n
-              </div>
+              <img 
+                src="https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.svg" 
+                alt="n8n" 
+                className="w-8 h-8"
+              />
               <span>n8n</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-green-500 rounded text-white text-xs font-bold">
-                GPT
-              </div>
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" 
+                alt="ChatGPT" 
+                className="w-8 h-8"
+              />
               <span>ChatGPT</span>
             </div>
             
@@ -558,16 +574,20 @@ export default function Home() {
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded text-white text-xs font-bold">
-                LC
-              </div>
+              <img 
+                src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" 
+                alt="LangChain" 
+                className="w-8 h-8 rounded"
+              />
               <span>LangChain</span>
             </div>
             
             <div className="tech-item">
-              <div className="w-8 h-8 flex items-center justify-center bg-purple-600 rounded text-white text-xs font-bold">
-                LG
-              </div>
+              <img 
+                src="https://python.langchain.com/img/brand/wordmark.png" 
+                alt="LangGraph" 
+                className="w-8 h-8"
+              />
               <span>LangGraph</span>
             </div>
             
