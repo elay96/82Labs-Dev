@@ -404,50 +404,23 @@ export default function Home() {
       <div className="overflow-hidden">
         <div className="tech-slider">
           <div className="tech-track">
-            {/* LLM and AI Icons */}
+            {/* Core Technologies and Platforms */}
+            <div className="tech-item">
+              <img 
+                src="https://docs.n8n.io/favicon.ico" 
+                alt="n8n" 
+                className="w-8 h-8"
+              />
+              <span>n8n</span>
+            </div>
+            
             <div className="tech-item">
               <img 
                 src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/openai.png" 
-                alt="OpenAI" 
+                alt="OpenAI ChatGPT" 
                 className="w-8 h-8"
               />
-              <span>OpenAI</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/claude-color.png" 
-                alt="Claude" 
-                className="w-8 h-8"
-              />
-              <span>Claude</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png" 
-                alt="Gemini" 
-                className="w-8 h-8"
-              />
-              <span>Gemini</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/mistral-color.png" 
-                alt="Mistral" 
-                className="w-8 h-8"
-              />
-              <span>Mistral</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/perplexity-color.png" 
-                alt="Perplexity" 
-                className="w-8 h-8"
-              />
-              <span>Perplexity</span>
+              <span>OpenAI ChatGPT</span>
             </div>
             
             <div className="tech-item">
@@ -461,102 +434,147 @@ export default function Home() {
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/huggingface-color.png" 
-                alt="HuggingFace" 
+                src="https://python.langchain.com/img/favicon.ico" 
+                alt="LangChain" 
                 className="w-8 h-8"
               />
-              <span>HuggingFace</span>
+              <span>LangChain</span>
             </div>
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/stability-color.png" 
-                alt="Stability AI" 
+                src="https://langchain-ai.github.io/langgraph/img/favicon.ico" 
+                alt="LangGraph" 
                 className="w-8 h-8"
               />
-              <span>Stability AI</span>
+              <span>LangGraph</span>
             </div>
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/midjourney.png" 
-                alt="Midjourney" 
+                src="https://react.dev/favicon.ico" 
+                alt="React" 
                 className="w-8 h-8"
               />
-              <span>Midjourney</span>
+              <span>React</span>
             </div>
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/dalle-color.png" 
-                alt="DALL-E" 
+                src="https://www.python.org/static/favicon.ico" 
+                alt="Python" 
                 className="w-8 h-8"
               />
-              <span>DALL-E</span>
+              <span>Python</span>
             </div>
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/grok.png" 
-                alt="Grok" 
+                src="https://nodejs.org/static/images/favicons/favicon.ico" 
+                alt="Node.js" 
                 className="w-8 h-8"
               />
-              <span>Grok</span>
+              <span>Node.js</span>
             </div>
             
             <div className="tech-item">
               <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/qwen-color.png" 
-                alt="Qwen" 
+                src="https://www.typescriptlang.org/favicon-32x32.png" 
+                alt="TypeScript" 
                 className="w-8 h-8"
               />
-              <span>Qwen</span>
+              <span>TypeScript</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://fastapi.tiangolo.com/img/favicon.png" 
+                alt="FastAPI" 
+                className="w-8 h-8"
+              />
+              <span>FastAPI</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://vitejs.dev/logo.svg" 
+                alt="Vite" 
+                className="w-8 h-8"
+              />
+              <span>Vite</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://www.docker.com/wp-content/uploads/2023/04/cropped-Docker-favicon-32x32.png" 
+                alt="Docker" 
+                className="w-8 h-8"
+              />
+              <span>Docker</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://www.postgresql.org/favicon.ico" 
+                alt="PostgreSQL" 
+                className="w-8 h-8"
+              />
+              <span>PostgreSQL</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://redis.io/wp-content/uploads/2024/04/cropped-redis-favicon-32x32.png" 
+                alt="Redis" 
+                className="w-8 h-8"
+              />
+              <span>Redis</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://www.pinecone.io/favicon.ico" 
+                alt="Pinecone" 
+                className="w-8 h-8"
+              />
+              <span>Pinecone</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://qdrant.tech/favicon.ico" 
+                alt="Qdrant" 
+                className="w-8 h-8"
+              />
+              <span>Qdrant</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://vercel.com/favicon.ico" 
+                alt="Vercel" 
+                className="w-8 h-8"
+              />
+              <span>Vercel</span>
             </div>
             
             {/* Duplicate for continuous scroll */}
             <div className="tech-item">
               <img 
+                src="https://docs.n8n.io/favicon.ico" 
+                alt="n8n" 
+                className="w-8 h-8"
+              />
+              <span>n8n</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
                 src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/openai.png" 
-                alt="OpenAI" 
+                alt="OpenAI ChatGPT" 
                 className="w-8 h-8"
               />
-              <span>OpenAI</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/claude-color.png" 
-                alt="Claude" 
-                className="w-8 h-8"
-              />
-              <span>Claude</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png" 
-                alt="Gemini" 
-                className="w-8 h-8"
-              />
-              <span>Gemini</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/mistral-color.png" 
-                alt="Mistral" 
-                className="w-8 h-8"
-              />
-              <span>Mistral</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/perplexity-color.png" 
-                alt="Perplexity" 
-                className="w-8 h-8"
-              />
-              <span>Perplexity</span>
+              <span>OpenAI ChatGPT</span>
             </div>
             
             <div className="tech-item">
@@ -566,6 +584,33 @@ export default function Home() {
                 className="w-8 h-8"
               />
               <span>Cohere</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://python.langchain.com/img/favicon.ico" 
+                alt="LangChain" 
+                className="w-8 h-8"
+              />
+              <span>LangChain</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://langchain-ai.github.io/langgraph/img/favicon.ico" 
+                alt="LangGraph" 
+                className="w-8 h-8"
+              />
+              <span>LangGraph</span>
+            </div>
+            
+            <div className="tech-item">
+              <img 
+                src="https://react.dev/favicon.ico" 
+                alt="React" 
+                className="w-8 h-8"
+              />
+              <span>React</span>
             </div>
           </div>
         </div>
