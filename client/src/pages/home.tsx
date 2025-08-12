@@ -625,10 +625,10 @@ export default function Home() {
                         setIsTransitioning(false);
                       }, 200);
                     }}
-                    className={`px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 ${
+                    className={`service-tab-button ${
                       activeModel === model.id
-                        ? 'bg-white text-gray-900 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        ? 'active text-gray-900'
+                        : 'text-gray-600 hover:text-gray-900'
                     }`}
                     data-testid={`tab-${model.id}`}
                   >
@@ -803,8 +803,8 @@ export default function Home() {
                       setIsTransitioning(false);
                     }, 200);
                   }}
-                  className={`w-2 h-2 rounded-full transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-                    activeModel === model.id ? 'bg-gray-700 w-6' : 'bg-gray-300 hover:bg-gray-400'
+                  className={`nav-dot ${
+                    activeModel === model.id ? 'active' : ''
                   }`}
                   aria-label={`View ${model.name}`}
                 />

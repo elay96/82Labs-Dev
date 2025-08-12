@@ -45,17 +45,93 @@
 }
 
 @layer utilities {
-  /* Minimal button styles with animations */
+  /* Minimal button styles with persistent spinning gradients */
   .minimal-button {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 relative overflow-hidden;
   }
   
   .minimal-button-primary {
-    @apply bg-black text-white hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5;
+    @apply text-white hover:shadow-lg hover:-translate-y-0.5 relative;
+    background: linear-gradient(45deg, #1f2937, #4f46e5, #7c3aed, #ec4899, #1f2937);
+    background-size: 300% 300%;
+    animation: gradientSpin 3s ease-in-out infinite;
+  }
+  
+  .minimal-button-primary:hover {
+    animation: gradientSpin 1.5s ease-in-out infinite;
+    background: linear-gradient(45deg, #111827, #3730a3, #6b21a8, #be185d, #111827);
+    background-size: 300% 300%;
+  }
+  
+  .minimal-button-primary:active {
+    animation: gradientSpin 0.8s ease-in-out infinite;
+    background: linear-gradient(45deg, #000000, #1e1b4b, #581c87, #9f1239, #000000);
+    background-size: 300% 300%;
   }
   
   .minimal-button-secondary {
-    @apply bg-transparent text-black border border-gray-300 hover:bg-gray-50 hover:shadow-md hover:-translate-y-0.5;
+    @apply text-black border-2 hover:shadow-md hover:-translate-y-0.5 relative;
+    background: linear-gradient(45deg, transparent, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1), rgba(236, 72, 153, 0.1), transparent);
+    background-size: 300% 300%;
+    border: 2px solid;
+    border-image: linear-gradient(45deg, #1f2937, #4f46e5, #7c3aed, #ec4899, #1f2937) 1;
+    animation: gradientSpin 3s ease-in-out infinite;
+  }
+  
+  .minimal-button-secondary:hover {
+    animation: gradientSpin 1.5s ease-in-out infinite;
+    background: linear-gradient(45deg, transparent, rgba(55, 48, 163, 0.2), rgba(107, 33, 168, 0.2), rgba(190, 24, 93, 0.2), transparent);
+    background-size: 300% 300%;
+    border-image: linear-gradient(45deg, #111827, #3730a3, #6b21a8, #be185d, #111827) 1;
+  }
+  
+  .minimal-button-secondary:active {
+    animation: gradientSpin 0.8s ease-in-out infinite;
+    background: linear-gradient(45deg, transparent, rgba(30, 27, 75, 0.3), rgba(88, 28, 135, 0.3), rgba(159, 18, 57, 0.3), transparent);
+    background-size: 300% 300%;
+    border-image: linear-gradient(45deg, #000000, #1e1b4b, #581c87, #9f1239, #000000) 1;
+  }
+
+  /* Service tab buttons with gradient */
+  .service-tab-button {
+    @apply px-6 py-3 rounded-md text-sm font-medium transition-all duration-300 relative overflow-hidden;
+    background: linear-gradient(45deg, #f9fafb, #ddd6fe, #fce7f3, #fed7d7, #f9fafb);
+    background-size: 300% 300%;
+    animation: gradientSpin 4s ease-in-out infinite;
+  }
+  
+  .service-tab-button.active {
+    background: linear-gradient(45deg, #ffffff, #8b5cf6, #ec4899, #f59e0b, #ffffff);
+    background-size: 300% 300%;
+    animation: gradientSpin 2s ease-in-out infinite;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-tab-button:hover {
+    animation: gradientSpin 2s ease-in-out infinite;
+    background: linear-gradient(45deg, #f3f4f6, #c4b5fd, #f9a8d4, #fbbf24, #f3f4f6);
+    background-size: 300% 300%;
+  }
+
+  /* Navigation dots with gradient */
+  .nav-dot {
+    @apply w-2 h-2 rounded-full transition-all duration-500 relative overflow-hidden;
+    background: linear-gradient(45deg, #d1d5db, #a78bfa, #f472b6, #fbbf24, #d1d5db);
+    background-size: 300% 300%;
+    animation: gradientSpin 4s ease-in-out infinite;
+  }
+  
+  .nav-dot.active {
+    @apply w-6;
+    background: linear-gradient(45deg, #374151, #7c3aed, #db2777, #d97706, #374151);
+    background-size: 300% 300%;
+    animation: gradientSpin 2s ease-in-out infinite;
+  }
+  
+  .nav-dot:hover {
+    animation: gradientSpin 2s ease-in-out infinite;
+    background: linear-gradient(45deg, #9ca3af, #8b5cf6, #ec4899, #f59e0b, #9ca3af);
+    background-size: 300% 300%;
   }
   
   /* Clean card styles with hover effects */
@@ -190,6 +266,18 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes gradientSpin {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
