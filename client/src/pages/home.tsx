@@ -274,8 +274,15 @@ export default function Home() {
               <img 
                 src={logoImg} 
                 alt="82 Labs" 
-                className="h-8 transition-transform hover:scale-105 duration-300"
+                className="h-8 transition-transform hover:scale-105 duration-300 cursor-pointer"
                 data-testid="logo-82labs"
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                  });
+                  setIsMobileMenuOpen(false);
+                }}
               />
             </div>
             
