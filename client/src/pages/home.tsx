@@ -430,7 +430,7 @@ export default function Home() {
             {/* Core Technologies and Platforms */}
             <div className="tech-item">
               <img 
-                src="https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.svg" 
+                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/n8n-color.png" 
                 alt="n8n" 
                 className="w-8 h-8"
               />
@@ -459,7 +459,7 @@ export default function Home() {
               <img 
                 src="https://logo.svgcdn.com/s/langchain-dark.png" 
                 alt="LangChain" 
-                className="w-8 h-8"
+                className="w-10 h-10"
               />
               <span>LangChain</span>
             </div>
@@ -468,7 +468,7 @@ export default function Home() {
               <img 
                 src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
                 alt="LangGraph" 
-                className="w-8 h-8"
+                className="w-10 h-10"
               />
               <span>LangGraph</span>
             </div>
@@ -548,7 +548,7 @@ export default function Home() {
             {/* Duplicate for continuous scroll */}
             <div className="tech-item">
               <img 
-                src="https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.svg" 
+                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/n8n-color.png" 
                 alt="n8n" 
                 className="w-8 h-8"
               />
@@ -577,7 +577,7 @@ export default function Home() {
               <img 
                 src="https://logo.svgcdn.com/s/langchain-dark.png" 
                 alt="LangChain" 
-                className="w-8 h-8"
+                className="w-10 h-10"
               />
               <span>LangChain</span>
             </div>
@@ -586,7 +586,7 @@ export default function Home() {
               <img 
                 src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
                 alt="LangGraph" 
-                className="w-8 h-8"
+                className="w-10 h-10"
               />
               <span>LangGraph</span>
             </div>
