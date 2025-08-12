@@ -58,37 +58,37 @@
   .minimal-button-primary::before {
     content: '';
     position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, #1f2937, #4f46e5, #7c3aed, #ec4899, #1f2937);
-    background-size: 300% 300%;
-    border-radius: 12px;
-    z-index: -1;
-    animation: gradientSpin 3s ease-in-out infinite;
-    opacity: 0.8;
-    filter: blur(1px);
-  }
-  
-  .minimal-button-primary:hover::before {
-    animation: gradientSpin 1.5s ease-in-out infinite;
-    opacity: 1;
     top: -4px;
     left: -4px;
     right: -4px;
     bottom: -4px;
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff006e);
+    background-size: 400% 400%;
+    border-radius: 14px;
+    z-index: -1;
+    animation: gradientSpin 3s linear infinite;
+    opacity: 1;
     filter: blur(2px);
   }
   
-  .minimal-button-primary:active::before {
-    animation: gradientSpin 0.8s ease-in-out infinite;
+  .minimal-button-primary:hover::before {
+    animation: gradientSpin 1.5s linear infinite;
     opacity: 1;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
     filter: blur(3px);
+  }
+  
+  .minimal-button-primary:active::before {
+    animation: gradientSpin 0.8s linear infinite;
+    opacity: 1;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    filter: blur(4px);
   }
   
   .minimal-button-secondary {
@@ -99,37 +99,37 @@
   .minimal-button-secondary::before {
     content: '';
     position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, #1f2937, #4f46e5, #7c3aed, #ec4899, #1f2937);
-    background-size: 300% 300%;
-    border-radius: 12px;
-    z-index: -1;
-    animation: gradientSpin 3s ease-in-out infinite;
-    opacity: 0.6;
-    filter: blur(1px);
-  }
-  
-  .minimal-button-secondary:hover::before {
-    animation: gradientSpin 1.5s ease-in-out infinite;
-    opacity: 0.8;
     top: -4px;
     left: -4px;
     right: -4px;
     bottom: -4px;
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b, #ff006e);
+    background-size: 400% 400%;
+    border-radius: 14px;
+    z-index: -1;
+    animation: gradientSpin 3s linear infinite;
+    opacity: 0.8;
     filter: blur(2px);
   }
   
-  .minimal-button-secondary:active::before {
-    animation: gradientSpin 0.8s ease-in-out infinite;
+  .minimal-button-secondary:hover::before {
+    animation: gradientSpin 1.5s linear infinite;
     opacity: 1;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
     filter: blur(3px);
+  }
+  
+  .minimal-button-secondary:active::before {
+    animation: gradientSpin 0.8s linear infinite;
+    opacity: 1;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    filter: blur(4px);
   }
 
   /* Service tab buttons with subtle halo */
