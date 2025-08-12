@@ -54,6 +54,7 @@ export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [serviceDetailModalOpen, setServiceDetailModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
+  const [isLoaded, setIsLoaded] = useState(false);
   const { toast } = useToast();
 
   // Refs for scroll animations
@@ -221,6 +222,15 @@ export default function Home() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeModel, models]);
+
+  // Lazy loading effect for mobile
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -640,7 +650,7 @@ export default function Home() {
           </div>
 
           {/* Model Card with Touch Support */}
-          <div className="max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5">
+          <div className={`max-w-4xl lg:max-w-5xl mx-auto reveal touch-pan-x relative lg:w-4/5 ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
             <div 
               className={`model-card-container relative ${isTransitioning ? 'transitioning' : ''}`}
               style={{ 
@@ -648,24 +658,12 @@ export default function Home() {
                 isolation: 'isolate'
               }}
               onTouchStart={(e) => {
-                // Only handle horizontal swipes on the card area, not on scrollable content
                 const touch = e.touches[0];
-                const target = e.target as HTMLElement;
-                
-                // Don't interfere with scrolling if touch is on scrollable content
-                if (target.closest('.scrollable-content')) {
-                  return;
-                }
-                
                 e.currentTarget.setAttribute('data-start-x', touch.clientX.toString());
                 e.currentTarget.setAttribute('data-start-y', touch.clientY.toString());
+                e.currentTarget.setAttribute('data-start-time', Date.now().toString());
               }}
               onTouchMove={(e) => {
-                const target = e.target as HTMLElement;
-                if (target.closest('.scrollable-content')) {
-                  return;
-                }
-                
                 const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
                 const startY = parseFloat(e.currentTarget.getAttribute('data-start-y') || '0');
                 const currentX = e.touches[0].clientX;
@@ -675,40 +673,46 @@ export default function Home() {
                 const diffY = Math.abs(startY - currentY);
                 
                 // If horizontal movement is dominant, prevent default to avoid scrolling
-                if (diffX > diffY && diffX > 10) {
+                if (diffX > diffY && diffX > 15) {
                   e.preventDefault();
                 }
               }}
               onTouchEnd={(e) => {
-                const target = e.target as HTMLElement;
-                if (target.closest('.scrollable-content')) {
-                  return;
-                }
-                
                 const startX = parseFloat(e.currentTarget.getAttribute('data-start-x') || '0');
                 const startY = parseFloat(e.currentTarget.getAttribute('data-start-y') || '0');
+                const startTime = parseFloat(e.currentTarget.getAttribute('data-start-time') || '0');
                 const endX = e.changedTouches[0].clientX;
                 const endY = e.changedTouches[0].clientY;
+                const endTime = Date.now();
                 
                 const diffX = startX - endX;
                 const diffY = Math.abs(startY - endY);
+                const timeDiff = endTime - startTime;
                 
-                // Only process horizontal swipes with minimal vertical movement
-                if (Math.abs(diffX) > 50 && diffY < 30) {
+                // Only process swipes that are:
+                // 1. Horizontal (min 50px horizontal, max 50px vertical)
+                // 2. Fast enough (less than 300ms) or long enough (more than 80px)
+                const isHorizontalSwipe = Math.abs(diffX) > 50 && diffY < 50;
+                const isFastEnough = timeDiff < 300;
+                const isLongEnough = Math.abs(diffX) > 80;
+                
+                if (isHorizontalSwipe && (isFastEnough || isLongEnough)) {
                   const currentIndex = models.findIndex(m => m.id === activeModel);
                   
-                  if (diffX > 0 && currentIndex < models.length - 1) {
-                    // Swipe left - next
+                  if (diffX > 0) {
+                    // Swipe left - next (with circular navigation)
+                    const nextIndex = currentIndex < models.length - 1 ? currentIndex + 1 : 0;
                     setIsTransitioning(true);
                     setTimeout(() => {
-                      setActiveModel(models[currentIndex + 1].id);
+                      setActiveModel(models[nextIndex].id);
                       setIsTransitioning(false);
                     }, 200);
-                  } else if (diffX < 0 && currentIndex > 0) {
-                    // Swipe right - previous
+                  } else {
+                    // Swipe right - previous (with circular navigation)
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : models.length - 1;
                     setIsTransitioning(true);
                     setTimeout(() => {
-                      setActiveModel(models[currentIndex - 1].id);
+                      setActiveModel(models[prevIndex].id);
                       setIsTransitioning(false);
                     }, 200);
                   }
@@ -772,7 +776,13 @@ export default function Home() {
               {models.map((model, index) => (
                 <button
                   key={model.id}
-                  onClick={() => setActiveModel(model.id)}
+                  onClick={() => {
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setActiveModel(model.id);
+                      setIsTransitioning(false);
+                    }, 200);
+                  }}
                   className={`w-2 h-2 rounded-full transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
                     activeModel === model.id ? 'bg-gray-700 w-6' : 'bg-gray-300 hover:bg-gray-400'
                   }`}
