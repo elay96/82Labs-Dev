@@ -377,12 +377,6 @@ ${data.name}`);
                 >
                   Request a demo
                 </Button>
-                <button 
-                  className="w-full py-2 text-gray-600 hover:text-gray-900 transition-colors"
-                  data-testid="mobile-button-sign-in"
-                >
-                  Sign in
-                </button>
               </div>
             </div>
           )}
@@ -887,15 +881,6 @@ ${data.name}`);
           <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 font-space-mono">
             Ready to transform your business with intelligent automation and expert development?
           </h2>
-          <div className="flex justify-center">
-            <Button
-              onClick={() => setIsContactModalOpen(true)}
-              className="minimal-button minimal-button-primary"
-              data-testid="button-get-started"
-            >
-              Get Started Today
-            </Button>
-          </div>
         </div>
       </section>
 
