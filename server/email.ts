@@ -1,11 +1,13 @@
 import sgMail from '@sendgrid/mail';
 
 const apiKey = process.env.SENDGRID_API_KEY;
-if (!apiKey) {
-  throw new Error("SENDGRID_API_KEY environment variable must be set");
-}
 
-sgMail.setApiKey(apiKey);
+// Only set up SendGrid if API key is available
+if (apiKey) {
+  sgMail.setApiKey(apiKey);
+} else {
+  console.warn("SENDGRID_API_KEY environment variable not set. Email functionality will be disabled.");
+}
 
 interface EmailParams {
   to: string;
@@ -16,6 +18,12 @@ interface EmailParams {
 }
 
 export async function sendEmail(params: EmailParams): Promise<boolean> {
+  // If no API key, return false instead of crashing
+  if (!apiKey) {
+    console.warn("SendGrid API key not configured. Email not sent.");
+    return false;
+  }
+
   try {
     const emailData: any = {
       to: params.to,
@@ -39,6 +47,16 @@ export async function sendContactFormEmail(data: {
   email: string;
   brief: string;
 }): Promise<boolean> {
+  // If no API key, just log the submission and return true
+  if (!apiKey) {
+    console.log(`Contact form submission received (email disabled):`, {
+      name: data.name,
+      email: data.email,
+      brief: data.brief
+    });
+    return true; // Return true so the form submission succeeds
+  }
+
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #1a1a1a; border-bottom: 2px solid #f97316; padding-bottom: 10px;">

@@ -18,6 +18,7 @@ import {
   SiChatbot,
   SiFastapi
 } from "react-icons/si";
+import StackIcon from "tech-stack-icons";
 import logoImg from "@assets/IMG_4364_1754462674951.png";
 import fintechImg from "@assets/Finance_1755018204858.png";
 import manufacturingImg from "@assets/Manufacturing_1755018201891.png";
@@ -421,7 +422,7 @@ export default function Home() {
           <div className="fade-in-delay-3">
             <Button
               onClick={() => setIsContactModalOpen(true)}
-              className="minimal-button minimal-button-primary text-lg px-8 py-4"
+              className="minimal-button bg-black text-white hover:bg-gray-800 text-lg px-8 py-4"
               data-testid="button-request-demo-hero"
             >
               Request a demo
@@ -433,174 +434,40 @@ export default function Home() {
       <div className="overflow-hidden">
         <div className="tech-slider">
           <div className="tech-track">
-            {/* Core Technologies and Platforms */}
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/n8n-color.png" 
-                alt="n8n" 
-                className="w-8 h-8"
-              />
-              <span>n8n</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" 
-                alt="ChatGPT" 
-                className="w-8 h-8"
-              />
-              <span>ChatGPT</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/cohere-color.png" 
-                alt="Cohere" 
-                className="w-8 h-8"
-              />
-              <span>Cohere</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://logo.svgcdn.com/s/langchain-dark.png" 
-                alt="LangChain" 
-                className="w-10 h-10"
-              />
-              <span>LangChain</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
-                alt="LangGraph" 
-                className="w-10 h-10"
-              />
-              <span>LangGraph</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiReact className="w-8 h-8 text-blue-500" />
-              <span>React</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiPython className="w-8 h-8 text-blue-600" />
-              <span>Python</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiNodedotjs className="w-8 h-8 text-green-600" />
-              <span>Node.js</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiTypescript className="w-8 h-8 text-blue-700" />
-              <span>TypeScript</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiFastapi className="w-8 h-8 text-teal-600" />
-              <span>FastAPI</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://vitejs.dev/logo.svg" 
-                alt="Vite" 
-                className="w-8 h-8"
-              />
-              <span>Vite</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiDocker className="w-8 h-8 text-blue-500" />
-              <span>Docker</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiPostgresql className="w-8 h-8 text-blue-600" />
-              <span>PostgreSQL</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiRedis className="w-8 h-8 text-red-600" />
-              <span>Redis</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://images.seeklogo.com/logo-png/48/2/pinecone-icon-logo-png_seeklogo-482365.png" 
-                alt="Pinecone" 
-                className="w-8 h-8"
-              />
-              <span>Pinecone</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://qdrant.tech/images/logo_with_text.svg" 
-                alt="Qdrant" 
-                className="w-8 h-8"
-              />
-              <span>Qdrant</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiVercel className="w-8 h-8 text-black" />
-              <span>Vercel</span>
-            </div>
-            
-            {/* Duplicate for continuous scroll */}
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/n8n-color.png" 
-                alt="n8n" 
-                className="w-8 h-8"
-              />
-              <span>n8n</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" 
-                alt="ChatGPT" 
-                className="w-8 h-8"
-              />
-              <span>ChatGPT</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/cohere-color.png" 
-                alt="Cohere" 
-                className="w-8 h-8"
-              />
-              <span>Cohere</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://logo.svgcdn.com/s/langchain-dark.png" 
-                alt="LangChain" 
-                className="w-10 h-10"
-              />
-              <span>LangChain</span>
-            </div>
-            
-            <div className="tech-item">
-              <img 
-                src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" 
-                alt="LangGraph" 
-                className="w-10 h-10"
-              />
-              <span>LangGraph</span>
-            </div>
-            
-            <div className="tech-item">
-              <SiReact className="w-8 h-8 text-blue-500" />
-              <span>React</span>
-            </div>
+            {/* Render tech items twice for continuous scroll effect */}
+            {[...Array(2)].map((_, repeatIndex) => 
+              [
+                { type: 'stack', name: 'n8n', label: 'n8n' },
+                { type: 'stack', name: 'cohere', label: 'Cohere' },
+                { type: 'stack', name: 'langchain', label: 'LangChain' },
+                { type: 'stack', name: 'langgraph', label: 'LangGraph' },
+                { type: 'stack', name: 'react', label: 'React' },
+                { type: 'stack', name: 'python', label: 'Python' },
+                { type: 'stack', name: 'nodejs', label: 'Node.js' },
+                { type: 'stack', name: 'typescript', label: 'TypeScript' },
+                { type: 'svg', src: '/fastapi_icon.svg', alt: 'FastAPI', label: 'FastAPI' },
+                { type: 'svg', src: '/vite_icon.svg', alt: 'Vite', label: 'Vite' },
+                { type: 'stack', name: 'docker', label: 'Docker' },
+                { type: 'stack', name: 'postgresql', label: 'PostgreSQL' },
+                { type: 'stack', name: 'redis', label: 'Redis' },
+                { type: 'svg', src: '/pinecone_icon.svg', alt: 'Pinecone', label: 'Pinecone' },
+                { type: 'svg', src: '/qdrant_icon.svg', alt: 'Qdrant', label: 'Qdrant' },
+                { type: 'stack', name: 'vercel', label: 'Vercel' },
+                { type: 'stack', name: 'tailwindcss', label: 'Tailwind' },
+                { type: 'stack', name: 'nextjs', label: 'Next.js' },
+                { type: 'stack', name: 'aws', label: 'AWS' },
+                { type: 'stack', name: 'openai', label: 'OpenAI' }
+              ].map((tech, index) => (
+                <div key={`${repeatIndex}-${index}`} className="tech-item">
+                  {tech.type === 'stack' ? (
+                    <StackIcon name={tech.name} className="w-8 h-8" />
+                  ) : (
+                    <img src={tech.src} alt={tech.alt} className="w-8 h-8" />
+                  )}
+                  <span>{tech.label}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
